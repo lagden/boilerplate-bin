@@ -51,10 +51,10 @@ if test -f ${ENTR_FILE}; then
 	# while true; do
 	# 	find "${WATCH_FOLDERS}" -type f -not -path "${WATCH_IGNORES}" | entr -nrd ${WATCH_CMD}
 	# done
-	if test -z ${WATCH_IGNORES+x}; then
-		find ${WATCH_FOLDERS} -type f -not -path ${WATCH_IGNORES} | entr -nrd ${WATCH_CMD}
-	else
+	if test -z ${WATCH_IGNORES}; then
 		find ${WATCH_FOLDERS} -type f | entr -nrd ${WATCH_CMD}
+	else
+		find ${WATCH_FOLDERS} -type f -not -path ${WATCH_IGNORES} | entr -nrd ${WATCH_CMD}
 	fi
 else
 	$($WATCH_CMD)
