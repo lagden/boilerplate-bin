@@ -50,13 +50,19 @@ ok "Running cmd: ${WATCH_CMD}"
 ENTR_FILE="$( which entr )"
 
 if test -f ${ENTR_FILE}; then
-	if test ${WATCH_IGNORES}; then
-		find ${WATCH_FOLDERS} -type f -not -path ${WATCH_IGNORES} | entr -r ${WATCH_CMD}
-	else
-		find ${WATCH_FOLDERS} -type f | entr -r ${WATCH_CMD}
-	fi
+	find ${WATCH_FOLDERS} -type f | entr -r ${WATCH_CMD}
 else
 	$(${WATCH_CMD})
 fi
+
+# if test -f ${ENTR_FILE}; then
+# 	if test -z "${WATCH_IGNORES}"; then
+# 		find ${WATCH_FOLDERS} -type f | entr -r ${WATCH_CMD}
+# 	else
+# 		find ${WATCH_FOLDERS} -type f -not -path "${WATCH_IGNORES}" | entr -r ${WATCH_CMD}
+# 	fi
+# else
+# 	$(${WATCH_CMD})
+# fi
 
 exit 0
