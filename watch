@@ -1,9 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 
 # Import functions
 . $DIR/_fn
+. $DIR/_env
 
 usage() {
 	cat <<-EOF
