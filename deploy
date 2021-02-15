@@ -4,7 +4,6 @@ DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 
 # Import functions
 . $DIR/_fn
-. $DIR/_env
 
 usage() {
 	cat <<-EOF
@@ -36,10 +35,6 @@ do
 		*) usage ;;
 	esac
 done
-
-# if test -z ${OPT}; then
-# 	abort "Missing environment"
-# fi
 
 # ENV File
 load_env $CURR_FOLDER $OPT

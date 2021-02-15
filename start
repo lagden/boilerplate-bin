@@ -4,7 +4,6 @@ DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 
 # Import functions
 . $DIR/_fn
-. $DIR/_env
 
 usage() {
 	cat <<-EOF
@@ -35,8 +34,6 @@ COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
 
 export DOCKERFILE="${CURR_FOLDER}/Dockerfile.dev"
 export ARG_ENTR_INOTIFY_WORKAROUND=`test $(uname) = 'Linux' && echo 0 || echo 1`
-# export USER_ID="$( id -u )"
-# export GROUP_ID="$( id -g )"
 
 while getopts ":bds:" o
 do
@@ -62,5 +59,7 @@ docker-compose \
 	$BUILD \
 	$DAEMON \
 	$SERVICE
+
+test $? -ne 0 && abort "Docker Compose up failed" || ok "Upped"
 
 exit 0

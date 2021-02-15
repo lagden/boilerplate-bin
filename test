@@ -4,7 +4,6 @@ DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 
 # Import functions
 . $DIR/_fn
-. $DIR/_env
 
 usage() {
 	cat <<-EOF
@@ -34,8 +33,6 @@ COMPOSE_TEST="${CURR_FOLDER}/docker-compose.test.yml"
 
 export DOCKERFILE="${CURR_FOLDER}/Dockerfile"
 export ARG_ENTR_INOTIFY_WORKAROUND=`test $(uname) = 'Linux' && echo 0 || echo 1`
-# export USER_ID="$( id -u )"
-# export GROUP_ID="$( id -g )"
 
 _cleanup() {
 	docker-compose \
