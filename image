@@ -36,6 +36,11 @@ done
 # ENV File
 load_env $CURR_FOLDER $OPT
 
+# Generate ENVs for frontend application
+if test $REQUIRE_GEN = 1; then
+	gen_env "${CURR_FOLDER}/resource/env.js"
+fi
+
 ## Variables
 REGISTRY_USER="$( cat ${CURR_FOLDER}/.registry-user )"
 REGISTRY_PASSWD="$( cat ${CURR_FOLDER}/.registry-passwd )"
@@ -44,9 +49,6 @@ TAG_IMAGE="${REGISTRY}/${IMAGE}:${VERSION}"
 ## Build
 docker build \
 	--build-arg NODE_ENV=${NODE_ENV} \
-	--build-arg APP_ENV=${APP_ENV} \
-	--build-arg APP_NS=${APP_NS} \
-	--build-arg VERSION=${VERSION} \
 	--compress --force-rm --no-cache . --tag $TAG_IMAGE
 test $? -ne 0 && abort "Falha no build da image --> ${build}" || ok "Build image ok --> ${build}"
 

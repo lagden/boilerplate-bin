@@ -30,6 +30,12 @@ Cria a imagem do projeto e envia para o `Registry` (opcional), gera o `docker-co
 Cria a imagem do projeto e envia para o `Registry`.
 
 
+#### gen_env (helper local)
+
+Esse script é utilizado em aplicações frontend.
+A função dele é gerar um arquivo javascript com as variáveis de ambiente.
+
+
 #### pkg (local)
 
 Atualiza para última versão todas as dependêcias e devDependências no arquivo `package.json`.  

@@ -35,6 +35,11 @@ done
 # ENV File
 load_env $CURR_FOLDER $OPT
 
+# Generate ENVs for frontend application
+if test $REQUIRE_GEN = 1; then
+	gen_env "${CURR_FOLDER}/resource/env.js"
+fi
+
 ok "Watching folders: ${WATCH_FOLDERS}"
 ok "Running cmd: ${WATCH_CMD}"
 

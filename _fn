@@ -21,3 +21,13 @@ load_env() {
 	. ${ENVFILE_OPT}
 	set +a
 }
+
+gen_env() {
+	GEN_ENV="./gen_env"
+	_PADRAO='../resource/env.js'
+	OUT="${1:-$_PADRAO}/.env-${2:-development}"
+	if test -f $GEN_ENV; then
+		$(${GEN_ENV} > ${OUT})
+		ok "ENVs para o front gerado... ${OUT}"
+	fi
+}
