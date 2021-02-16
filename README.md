@@ -1,6 +1,6 @@
 # Boilerplate Bin
 
-Boilerplate com `Bash Script`, `Shell Script` e `Node Script` para auxiliar.
+Boilerplate com `Bourne Shell script`, `Bourne-Again Shell script` e `Node script` para auxiliar.
 
 - [Boilerplate Rest](https://github.com/lagden/boilerplate-rest)
 - [Boilerplate GraphQL](https://github.com/lagden/boilerplate-gql)
