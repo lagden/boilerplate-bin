@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR="$( cd -P "$( dirname "$0" )" && pwd )"
+DIR="$(cd -P "$(dirname "$0")" && pwd)"
 
 # Import functions
 . $DIR/_fn
@@ -24,7 +24,7 @@ exit 0
 cd $DIR
 cd ..
 
-CURR_FOLDER="$( pwd )"
+CURR_FOLDER="$(pwd)"
 BUILD=""
 DAEMON="--abort-on-container-exit"
 OPT="development"
@@ -33,7 +33,6 @@ COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
 COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
 
 export DOCKERFILE="${CURR_FOLDER}/Dockerfile.dev"
-export ARG_ENTR_INOTIFY_WORKAROUND=`test $(uname) = 'Linux' && echo 0 || echo 1`
 
 while getopts ":bds:" o
 do
@@ -46,10 +45,10 @@ do
 done
 
 # ENV File
-load_env $CURR_FOLDER $OPT
+load_env $OPT
 
 # Generate ENVs for frontend application
-if test $REQUIRE_GEN = 1; then
+if test "${REQUIRE_GEN:-0}" = "1"; then
 	gen_env "${CURR_FOLDER}/resource/env.js"
 fi
 

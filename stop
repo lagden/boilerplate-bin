@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR="$( cd -P "$( dirname "$0" )" && pwd )"
+DIR="$(cd -P "$(dirname "$0")" && pwd)"
 
 # Import functions
 . $DIR/_fn
@@ -9,16 +9,15 @@ DIR="$( cd -P "$( dirname "$0" )" && pwd )"
 cd $DIR
 cd ..
 
-CURR_FOLDER="$( pwd )"
+CURR_FOLDER="$(pwd)"
 OPT="development"
 COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
 COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
 
 export DOCKERFILE="${CURR_FOLDER}/Dockerfile.dev"
-export ARG_ENTR_INOTIFY_WORKAROUND=`test $(uname) = 'Linux' && echo 0 || echo 1`
 
 # ENV File
-load_env $CURR_FOLDER $OPT
+load_env $OPT
 
 docker-compose \
 	-f $COMPOSE_TEMPLATE \

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DIR="$( cd -P "$( dirname "$0" )" && pwd )"
+DIR="$(cd -P "$(dirname "$0")" && pwd)"
 
 # Import functions
 . $DIR/_fn
@@ -23,7 +23,7 @@ exit 0
 cd $DIR
 cd ..
 
-CURR_FOLDER="$( pwd )"
+CURR_FOLDER="$(pwd)"
 BUILD=""
 SERVICE="app"
 OPT="test"
@@ -32,7 +32,6 @@ COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
 COMPOSE_TEST="${CURR_FOLDER}/docker-compose.test.yml"
 
 export DOCKERFILE="${CURR_FOLDER}/Dockerfile"
-export ARG_ENTR_INOTIFY_WORKAROUND=`test $(uname) = 'Linux' && echo 0 || echo 1`
 
 _cleanup() {
 	docker-compose \
@@ -56,10 +55,10 @@ do
 done
 
 # ENV File
-load_env $CURR_FOLDER $OPT
+load_env $OPT
 
 # Generate ENVs for frontend application
-if test $REQUIRE_GEN = 1; then
+if test "${REQUIRE_GEN:-0}" = "1"; then
 	gen_env "${CURR_FOLDER}/resource/env.js"
 fi
 
