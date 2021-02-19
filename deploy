@@ -19,11 +19,10 @@ EOF
 exit 0
 }
 
-# Go to project root
-cd $DIR
-cd ..
-
+# Go to current directory
 CURR_FOLDER="$(pwd)"
+cd $CURR_FOLDER
+
 BUILD=1
 OPT="staging"
 

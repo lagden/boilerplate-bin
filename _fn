@@ -23,15 +23,20 @@ load_env() {
 }
 
 gen_env() {
-	_DIR=$(dirname "$0")
+	_DIR="$(cd -P "$(dirname "$0")" && pwd)"
 	GEN_ENV="${2:-$_DIR}/gen_env"
 
 	if test -z $1; then
 		abort "Missing output"
 	fi
 
-	if test -f $GEN_ENV; then
-		$GEN_ENV > $1
-		ok "ENVs generated... ${1}"
+	if test ! -f "${GEN_ENV}"; then
+		abort "File not found: ${GEN_ENV}"
 	fi
+
+	_DIR_FILE=$(dirname "$1")
+	mkdir -p $_DIR_FILE
+
+	$GEN_ENV > $1
+	ok "ENVs generated... ${1}"
 }
