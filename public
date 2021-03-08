@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Go to current directory
+CURR_FOLDER="$(pwd)"
+cd $CURR_FOLDER
+
+mkdir -p ./public && cp -R ./static/. ./public
+
+exit 0
