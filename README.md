@@ -1,6 +1,6 @@
 # Boilerplate Bin
 
-Boilerplate com `Bourne Shell script`, `Bourne-Again Shell script` e `Node script`.
+Boilerplate com `Bourne Shell script`, `Bourne-Again Shell script` e `Node.js script`.
 
 Utilizados nos projetos:
 
