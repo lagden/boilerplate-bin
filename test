@@ -24,7 +24,7 @@ CURR_FOLDER="$(pwd)"
 cd $CURR_FOLDER
 
 BUILD=""
-SERVICE="app"
+SERVICE=""
 OPT="test"
 COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
 COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"

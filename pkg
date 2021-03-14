@@ -2,13 +2,13 @@
 
 'use strict'
 
-const {resolve} = require('path')
+const path = require('path')
 const {createWriteStream} = require('fs')
 const {promisify} = require('util')
 const child_process = require('child_process')
 
 const exec = promisify(child_process.exec)
-const packageFile = resolve(process.cwd(), 'package.json')
+const packageFile = path.resolve(process.cwd(), 'package.json')
 const packageJson = require(packageFile)
 const {
 	dependencies,

@@ -22,7 +22,7 @@ load_env() {
 	. ${ENVFILE_OPT}
 	set +a
 
-	if test -e $ENVFILE_LOCAL; then
+	if test -e $ENVFILE_LOCAL -a "${1}" = "development"; then
 		set -a
 		. ${ENVFILE_LOCAL}
 		set +a

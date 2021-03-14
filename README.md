@@ -1,6 +1,8 @@
 # Boilerplate Bin
 
-Boilerplate com `Bourne Shell script`, `Bourne-Again Shell script` e `Node script` para auxiliar.
+Boilerplate com `Bourne Shell script`, `Bourne-Again Shell script` e `Node script`.
+
+Utilizados nos projetos:
 
 - [Boilerplate Rest](https://github.com/lagden/boilerplate-rest)
 - [Boilerplate GraphQL](https://github.com/lagden/boilerplate-gql)
@@ -9,91 +11,181 @@ Boilerplate com `Bourne Shell script`, `Bourne-Again Shell script` e `Node scrip
 
 ## Como usar
 
-O `bin` é depedente de uma estrutura específica para que funcione adequadamente.  
-Os boilerplates mencionados acima já contém.
+⚠️ **Atenção!**
+
+Esses **scripts** não são genéricos, alguns dependem de uma estrutura específica para que funcionem adequadamente.
 
 ```shell
-cd minha_api
-npx degit lagden/boilerplate-bin bin
+npx degit lagden/boilerplate-gql#main meu_app
+cd meu_app
+npx degit lagden/boilerplate-bin#main bin
 ```
+
 
 ## Scripts
 
+```
+- helper - são scripts utilizados internamente por outros scripts
+- local  - são scripts utilizados apenas local
+- docker - são scripts utilizados no docker
+```
 
-#### deploy (local)
-
-Cria a imagem do projeto e envia para o `Registry` (opcional), gera o `docker-compose.yml` de produção ou staging, sincroniza os arquivos com servidor e executa o stack deploy.
-
-
-#### image (local)
-
-Cria a imagem do projeto e envia para o `Registry`.
+---
 
 
-#### gen_env (helper local)
+### \_fn (helper)
 
-Esse script é utilizado em aplicações frontend.
-A função dele é gerar um arquivo javascript com as variáveis de ambiente.
-
-
-#### pkg (local)
-
-Atualiza para última versão todas as dependêcias e devDependências no arquivo `package.json`.  
-A instalação tem que ser feito manualmente.
+Métodos utilizados pelos scripts.
 
 
-#### zera (local)
+### image (local)
 
-Remove os arquivos `node_modules` e `package-lock.json`.  
-E instala módulos novamente.
-
-
-#### start (local)
-
-Inicia o stack no modo `desenvolvimento` via Docker Compose.
+Cria a imagem do projeto e faz um `push` para o **resgistry** configurado.
 
 
-#### stop (local)
+```
+Usage: image [options]
 
-Encerra o stack que foi inicializado via Docker Compose.
+Options:
+  -e <production|staging>  Environment
+  -h                       Show usage
+```
 
 
-#### test (local)
+### deploy (local)
 
-Executa o teste do stack via Docker Compose.
+O fluxo do **deploy**:
+
+1. Carrega as variáveis de ambiente
+2. Executa o script `image`
+3. Cria o arquivo `docker-compose-{staging|production}.yml`
+4. Sincroniza os arquivos com o servidor
+5. Executa o `docker stack deploy` no servidor
 
 
-#### wait (local e server)
+```
+Usage: deploy [options]
 
-O `wait` serve para garantir que os serviços estejam rodando antes de iniciar a aplicação.  
-Veja um exemplo abaixo:
+Options:
+  -i                       Ignore build image
+  -e <staging|production>  Environment
+  -h                       Show usage
+```
+
+
+### gen_env (helper)
+
+Esse script é utilizado em aplicações frontend.  
+A função dele é gerar um arquivo **javascript** com as variáveis de ambiente.
+
+
+### public (helper)
+
+Esse script é utilizado em aplicações frontend.  
+A função dele é criar a pasta `public` e copiar o conteúdo da pasta `static` para `public`.
+
+
+### zera (local)
+
+Remove `node_modules` e `package-lock.json` e instala pacotes novamente.
+
+
+### pkg (local)
+
+Atualiza para última versão todas as `dependencies` e `devDependencies` do arquivo **package.json**.  
+Mas é preciso executar o `npm i` ou `zera` para instalar.
+
+
+### start_local (local)
+
+Carrega as variáveis de ambiente de **desenvolvimento** e inicia a aplicação.
+
+
+### start (local)
+
+Inicia o stack de **desenvolvimento** via **docker**.
+
+```
+Usage: start [options]
+
+Options:
+  -b            Build image
+  -d            Run containers in the background
+  -s <service>  Docker compose service name
+  -h            Show usage
+```
+
+
+### stop (local)
+
+Encerra o stack que foi inicializado via **docker** pelo script `start`.
+
+
+### test_local (local)
+
+Carrega as variáveis de ambiente de **teste** e executa o teste da aplicação.
+
+
+### test (local)
+
+Executa o teste do stack via **docker**
+
+```
+Usage: test [options]
+
+Options:
+  -b            Build image
+  -s <service>  Docker compose service name
+  -h            Show usage
+```
+
+
+### wait (docker)
+
+Esse script é para garantir que os outros serviços estejam rodando antes de iniciar a aplicação.  
+Veja o exemplo abaixo:
 
 ```yml
 command: >
   /bin/ash -c "
-    bin/wait servico_de_db:3435;
+    bin/wait db:3435;
     node server
   "
 ```
 
-A aplicação só irá iniciar quando o `servico_de_db` estiver respondendo na porta `3435`.
+A aplicação só irá iniciar quando o `db` estiver respondendo na porta `3435`.
 
 
-#### watch (docker)
+### watch (docker)
 
-Fica observando os arquivos que estão nas pastas definidas na variável de ambiente (`WATCH_FOLDERS`).  
-Quando algum arquivo é alterado, o `live reload` ocorre.
-
-
-#### watch_local (local)
-
-Igual o `watch`, mas funciona local.
+Esse script reinicia a aplicação caso ocorra alguma alteração.
 
 
-**Atenção!**
+### watch_local (local)
 
-O `watch_local` depende do [entr](https://github.com/eradman/entr) para funcionar.  
-É possível ajustar o para utilizar o [nodemon](https://github.com/remy/nodemon).
+Igual `watch`, mas para rodar é necessário fazer algumas instalações e configurações.
+
+
+#### entr
+
+Se estiver rodando em **BSD**, **Mac OS**, e **Linux**, basta instalar o [entr](https://github.com/eradman/entr).
+
+
+#### nodemon
+
+Como o [entr](https://github.com/eradman/entr) não roda no **Windows**, existe uma solução alternativa.
+
+Instale o [nodemon](https://github.com/remy/nodemon) global:
+
+```shell
+npm i -g nodemon
+```
+
+Crie o arquivo `.env-local` na raiz do projeto e insira:
+
+```
+WATCH_CMD="nodemon -e js,json --watch server --exec npm start"
+```
 
 
 ## License

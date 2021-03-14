@@ -9,7 +9,7 @@ DIR="$(cd -P "$(dirname "$0")" && pwd)"
 CURR_FOLDER="$(pwd)"
 cd $CURR_FOLDER
 
-OPT=development
+OPT="development"
 
 # ENV File
 load_env $OPT
@@ -19,13 +19,6 @@ if test "${REQUIRE_GEN:-0}" = "1"; then
 	gen_env "${CURR_FOLDER}/resource/env.js"
 fi
 
-ok "Running cmd: ${WATCH_CMD}"
-
-# Watch command
-$WATCH_CMD
-
-if test $? -ne 0; then
-	abort "Watch failed"
-fi
+$START_CMD
 
 exit 0

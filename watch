@@ -9,9 +9,13 @@ DIR="$(cd -P "$(dirname "$0")" && pwd)"
 CURR_FOLDER="$(pwd)"
 cd $CURR_FOLDER
 
-ok "Watching folders: ${WATCH_FOLDERS}"
 ok "Running cmd: ${WATCH_CMD}"
 
-find $WATCH_FOLDERS -type f | entr -r $WATCH_CMD
+# Watch command
+$WATCH_CMD
+
+if test $? -ne 0; then
+	abort "Watch failed"
+fi
 
 exit 0

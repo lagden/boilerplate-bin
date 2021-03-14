@@ -25,9 +25,9 @@ CURR_FOLDER="$(pwd)"
 cd $CURR_FOLDER
 
 BUILD=""
+SERVICE=""
 DAEMON="--abort-on-container-exit"
 OPT="development"
-SERVICE=""
 COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
 COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
 
