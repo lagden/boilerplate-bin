@@ -15,6 +15,8 @@ Utilizados nos projetos:
 
 Esses **scripts** não são genéricos, alguns dependem de uma estrutura específica para que funcionem adequadamente.
 
+**Exemplo:**
+
 ```shell
 npx degit lagden/boilerplate-gql#main meu_app
 cd meu_app
