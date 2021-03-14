@@ -188,7 +188,7 @@ npm i -g nodemon
 Crie o arquivo `.env-local` na raiz do projeto e insira:
 
 ```
-WATCH_CMD="nodemon -e js,json --watch server --exec npm start"
+WATCH_LOCAL_CMD="nodemon -e js,json --watch server --exec npm start"
 ```
 
 
