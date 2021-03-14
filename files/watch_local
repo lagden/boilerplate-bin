@@ -22,7 +22,7 @@ fi
 ok "Running cmd: ${WATCH_CMD}"
 
 # Watch command
-$WATCH_CMD
+eval ${WATCH_CMD}
 
 if test $? -ne 0; then
 	abort "Watch failed"
