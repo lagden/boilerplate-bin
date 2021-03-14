@@ -63,6 +63,6 @@ docker-compose \
 	$DAEMON \
 	$SERVICE
 
-test $? -ne 0 && abort "Docker Compose up failed" || ok "Upped"
+test $? -ne 0 && abort "Docker Compose up failed" || ok "Stopped gracefully"
 
 exit 0
