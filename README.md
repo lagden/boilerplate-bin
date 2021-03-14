@@ -13,14 +13,16 @@ Utilizados nos projetos:
 
 ⚠️ **Atenção!**
 
-Esses **scripts** não são genéricos, alguns dependem de uma estrutura específica para que funcionem adequadamente.
+Esses scripts dependem de uma estrutura específica para que funcionem adequadamente.
 
 **Exemplo:**
 
 ```shell
 npx degit lagden/boilerplate-gql#main meu_app
 cd meu_app
-npx degit lagden/boilerplate-bin#main bin
+npx degit lagden/boilerplate-bin/files#main bin
+npx degit lagden/boilerplate-envs/files#main ./ --force
+npx degit lagden/boilerplate-docker-nodejs/files#main ./ --force
 ```
 
 
