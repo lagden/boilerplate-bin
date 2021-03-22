@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+
+'use strict'
+
+const path = require('path')
+const {createWriteStream} = require('fs')
+
+const packageFile = path.resolve(process.cwd(), 'package.json')
+const packageJson = require(packageFile)
+
+function _error(message) {
+	process.stderr.write(message)
+	process.exit(1)
+}
+
+if (Reflect.has(packageJson, 'devDependencies') === false) {
+	process.stdout.write('nothing happened.')
+	process.exit(0)
+}
+
+Reflect.deleteProperty(packageJson, 'devDependencies')
+createWriteStream(packageFile)
+	.on('finish', () => {
+		process.stdout.write('devDependencies was removed.')
+	})
+	.on('close', () => {
+		process.exit(0)
+	})
+	.on('error', error => {
+		_error(error.message)
+	})
+	.end(JSON.stringify(packageJson, undefined, '  '))

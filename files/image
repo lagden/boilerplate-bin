@@ -40,22 +40,22 @@ if test "${REQUIRE_GEN:-0}" = "1"; then
 	gen_env "${CURR_FOLDER}/resource/env.js"
 fi
 
-## Variables
+# Variables
 REGISTRY_USER="$(cat ${CURR_FOLDER}/.registry-user)"
 REGISTRY_PASSWD="$(cat ${CURR_FOLDER}/.registry-passwd)"
 TAG_IMAGE="${REGISTRY}/${IMAGE}:${VERSION}"
 
-## Build
+# Build
 docker build \
 	--build-arg NODE_ENV=${NODE_ENV} \
 	--compress --force-rm --no-cache . --tag $TAG_IMAGE
 test $? -ne 0 && abort "Falha no build da image --> ${TAG_IMAGE}" || ok "Build image ok --> ${TAG_IMAGE}"
 
-## Push (Send image to Registry)
+# Push (Send image to Registry)
 cat ${CURR_FOLDER}/.registry-passwd | docker login $REGISTRY --username $REGISTRY_USER --password-stdin
 docker push $TAG_IMAGE
 
-# Cleanup
+# # Cleanup
 # docker rmi $(docker images -q -f "dangling=true" -f "label=autodelete=true")
 
 ok "Build finalizado... Yeahh!!!"
