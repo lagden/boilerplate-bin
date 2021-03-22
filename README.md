@@ -9,20 +9,32 @@ Utilizados nos projetos:
 - [Boilerplate Svelte](https://github.com/lagden/boilerplate-svelte)
 
 
+## Instalação
+
+⚠️ **Importante**
+
+Instale o [Yarn 2 aka Berry](https://yarnpkg.com/getting-started/install).
+
+```
+npm install -g yarn
+yarn set version berry
+```
+
+
 ## Como usar
 
-⚠️ **Atenção!**
+⚠️ **Atenção**
 
 Esses scripts dependem de uma estrutura específica para que funcionem adequadamente.
 
 **Exemplo:**
 
 ```shell
-npx degit lagden/boilerplate-gql#main meu_app
+yarn dlx degit lagden/boilerplate-gql#main meu_app
 cd meu_app
-npx degit lagden/boilerplate-bin/files#main bin
-npx degit lagden/boilerplate-envs/files#main ./ --force
-npx degit lagden/boilerplate-docker-nodejs/files#main ./ --force
+yarn dlx degit lagden/boilerplate-bin/files#main bin
+yarn dlx degit lagden/boilerplate-envs/files#main ./ --force
+yarn dlx degit lagden/boilerplate-docker-nodejs/files#main ./ --force
 ```
 
 
@@ -87,6 +99,12 @@ A função dele é gerar um arquivo **javascript** com as variáveis de ambiente
 
 Esse script é utilizado em aplicações frontend.  
 A função dele é criar a pasta `public` e copiar o conteúdo da pasta `static` para `public`.
+
+
+### prod (docker)
+
+Remove as `devDependencies` do arquivo **package.json**.  
+Isso ocorre apenas no momento do build da imagem de `production` ou `stating`.
 
 
 ### zera (local)
@@ -179,16 +197,10 @@ Se estiver rodando em **BSD**, **Mac OS**, e **Linux**, basta instalar o [entr](
 
 Como o [entr](https://github.com/eradman/entr) não roda no **Windows**, existe uma solução alternativa.
 
-Instale o [nodemon](https://github.com/remy/nodemon) global:
-
-```shell
-npm i -g nodemon
-```
-
 Crie o arquivo `.env-local` na raiz do projeto e insira:
 
 ```
-WATCH_LOCAL_CMD="nodemon -e js,json --watch server --exec npm start"
+WATCH_LOCAL_CMD="yarn dlx nodemon -e js,json --watch server --exec npm start"
 ```
 
 
