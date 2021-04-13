@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Go to current directory
 CURR_FOLDER="$(pwd)"

@@ -30,7 +30,7 @@ Esses scripts dependem de uma estrutura específica para que funcionem adequadam
 **Exemplo:**
 
 ```shell
-yarn dlx degit lagden/boilerplate-gql#main meu_app
+yarn dlx degit lagden/boilerplate-rest#master meu_app
 cd meu_app
 yarn dlx degit lagden/boilerplate-bin/files#main bin
 yarn dlx degit lagden/boilerplate-envs/files#main ./ --force
@@ -39,6 +39,8 @@ yarn dlx degit lagden/boilerplate-docker-nodejs/files#main ./ --force
 
 
 ## Scripts
+
+Legenda:
 
 ```
 - helper - são scripts utilizados internamente por outros scripts
@@ -107,15 +109,15 @@ Remove as `devDependencies` do arquivo **package.json**.
 Isso ocorre apenas no momento do build da imagem de `production` ou `stating`.
 
 
-### zera (local)
-
-Remove `node_modules` e `package-lock.json` e instala pacotes novamente.
-
-
 ### pkg (local)
 
 Atualiza para última versão todas as `dependencies` e `devDependencies` do arquivo **package.json**.  
-Mas é preciso executar o `npm i` ou `zera` para instalar.
+Mas é preciso executar o `yarn install` ou `zera` para instalar.
+
+
+### zera (local)
+
+Limpa todos os pacotes e reinstala novamente.
 
 
 ### start_local (local)
@@ -180,12 +182,13 @@ A aplicação só irá iniciar quando o `db` estiver respondendo na porta `3435`
 
 ### watch (docker)
 
-Esse script reinicia a aplicação caso ocorra alguma alteração.
+Esse script faz o **hot reload** da aplicação.
 
 
 ### watch_local (local)
 
-Igual `watch`, mas para rodar é necessário fazer algumas instalações e configurações.
+Igual `watch`, mas é para rodar local.  
+Para que funcione, é necessário fazer algumas instalações e configurações.
 
 
 #### entr
