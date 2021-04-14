@@ -10,15 +10,14 @@ ok() {
 
 load_env() {
 	_DIR="$(pwd)"
-	ENVFILE_BASE="${2:-$_DIR}/.env-base"
 	ENVFILE_LOCAL="${2:-$_DIR}/.env-local"
 	ENVFILE_OPT="${2:-$_DIR}/.env-${1:-development}"
-	if test ! -e $ENVFILE_BASE -o ! -e $ENVFILE_OPT; then
+
+	if test ! -e $ENVFILE_OPT; then
 		abort "Environment file not found"
 	fi
 
 	set -a
-	. ${ENVFILE_BASE}
 	. ${ENVFILE_OPT}
 	set +a
 
