@@ -56,7 +56,7 @@ fi
 
 # Criando docker-compose
 COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
-COMPOSE_DEPLOY="${CURR_FOLDER}/docker-compose-${OPT}.yml"
+COMPOSE_DEPLOY="${CURR_FOLDER}/docker-compose-${VERSION}.yml"
 envsubst < $COMPOSE_TEMPLATE > $COMPOSE_DEPLOY
 
 # Sync
@@ -67,7 +67,7 @@ test $? -ne 0 && abort "Rsync fail" || ok "Rsync done"
 ssh -T $USER@$SERVER <<EOF
 sudo -i
 cd $DEPLOY_FOLDER
-/usr/bin/docker stack deploy --with-registry-auth --prune --compose-file docker-compose-${OPT}.yml ${DOCKER_STACK_NAME}_${OPT}
+/usr/bin/docker stack deploy --with-registry-auth --prune --compose-file docker-compose-${VERSION}.yml ${DOCKER_STACK_NAME}_${OPT}
 exit 0
 EOF
 
