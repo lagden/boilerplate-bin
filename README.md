@@ -49,13 +49,13 @@ yarn dlx degit lagden/boilerplate-docker-nodejs/files#main ./ --force
   - start
   - stop
   - test
-  - wait
   - watch
 - front
   - gen_env
   - public
 - helper
   - fn
+  - wait
 - local
   - start
   - test
@@ -139,22 +139,6 @@ Options:
 ```
 
 
-#### wait
-
-Esse script é para garantir que os outros serviços estejam rodando antes de iniciar a aplicação.  
-Veja o exemplo abaixo:
-
-```yml
-command: >
-  /bin/ash -c "
-    bin/wait db:3435;
-    node server
-  "
-```
-
-A aplicação só irá iniciar quando o `db` estiver respondendo na porta `3435`.
-
-
 #### watch
 
 Esse script faz o **hot reload** da aplicação.
@@ -179,6 +163,22 @@ A função dele é criar a pasta `public` e copiar o conteúdo da pasta `static`
 #### fn
 
 Métodos utilizados pelos scripts.
+
+
+#### wait
+
+Esse script é para garantir que os outros serviços estejam rodando antes de iniciar a aplicação.  
+Veja o exemplo abaixo:
+
+```yml
+command: >
+  /bin/ash -c "
+    bin/wait db:3435;
+    node server
+  "
+```
+
+A aplicação só irá iniciar quando o `db` estiver respondendo na porta `3435`.
 
 
 ### Local
