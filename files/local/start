@@ -1,9 +1,10 @@
 #!/bin/bash
 
-DIR="$(cd -P "$(dirname "$0")" && pwd)"
+DIR="$(cd $(dirname $0) && pwd)"
+BIN_DIR="$(cd $DIR/.. && pwd)"
 
 # Import functions
-. $DIR/_fn
+. $BIN_DIR/helper/fn
 
 # Go to current directory
 CURR_FOLDER="$(pwd)"
@@ -19,6 +20,6 @@ if test "${REQUIRE_GEN:-0}" = "1"; then
 	gen_env "${CURR_FOLDER}/resource/env.js"
 fi
 
-$TEST_CMD
+$START_CMD
 
 exit 0

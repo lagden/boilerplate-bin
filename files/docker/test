@@ -1,9 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR="$(cd -P "$(dirname "$0")" && pwd)"
+DIR="$(cd $(dirname $0) && pwd)"
+BIN_DIR="$(cd $DIR/.. && pwd)"
 
 # Import functions
-. $DIR/_fn
+. $BIN_DIR/helper/fn
 
 usage() {
 	cat <<-EOF
@@ -12,7 +13,6 @@ usage() {
 
   Options:
     -b            Build image
-    -d            Run containers in the background
     -s <service>  Docker compose service name
     -h            Show usage
 
@@ -26,18 +26,29 @@ cd $CURR_FOLDER
 
 BUILD=""
 SERVICE=""
-DAEMON="--abort-on-container-exit"
-OPT="development"
+OPT="test"
 COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
 COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
+COMPOSE_TEST="${CURR_FOLDER}/docker-compose.test.yml"
 
 export DOCKERFILE="${CURR_FOLDER}/Dockerfile.dev"
 
-while getopts ":bds:" o
+_cleanup() {
+	docker-compose \
+		-f $COMPOSE_TEMPLATE \
+		-f $COMPOSE_LOCAL \
+		-f $COMPOSE_TEST \
+		down \
+		--volumes \
+		--remove-orphans > /dev/null 2>&1
+}
+
+trap '_cleanup; abort "Tests failed for unexpected reasons"' HUP INT QUIT PIPE TERM SIGINT SIGTERM
+
+while getopts ":bs:" o
 do
 	case ${o} in
 		b) BUILD="--build" ;;
-		d) DAEMON="-d" ;;
 		s) SERVICE=$OPTARG ;;
 		*) usage ;;
 	esac
@@ -54,15 +65,23 @@ fi
 docker-compose \
 	-f $COMPOSE_TEMPLATE \
 	-f $COMPOSE_LOCAL \
+	-f $COMPOSE_TEST \
 	up \
 	--force-recreate \
 	--always-recreate-deps \
+	--abort-on-container-exit \
+	--exit-code-from $SERVICE \
 	--remove-orphans \
 	--renew-anon-volumes \
 	$BUILD \
-	$DAEMON \
 	$SERVICE
 
-test $? -ne 0 && abort "Docker Compose up failed" || ok "Stopped gracefully"
+if test $? -ne 0; then
+	_cleanup
+	abort "Test FAIL"
+fi
+
+_cleanup
+ok "Test PASS"
 
 exit 0

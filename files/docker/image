@@ -1,9 +1,10 @@
 #!/bin/bash
 
-DIR="$(cd -P "$(dirname "$0")" && pwd)"
+DIR="$(cd $(dirname $0) && pwd)"
+BIN_DIR="$(cd $DIR/.. && pwd)"
 
 # Import functions
-. $DIR/_fn
+. $BIN_DIR/helper/fn
 
 usage() {
 	cat <<-EOF
@@ -48,7 +49,11 @@ TAG_IMAGE="${REGISTRY}/${IMAGE}:${VERSION}"
 # Build
 docker build \
 	--build-arg NODE_ENV=${NODE_ENV} \
-	--compress --force-rm --no-cache . --tag $TAG_IMAGE
+	--target main \
+	--compress \
+	--force-rm \
+	--no-cache . --tag $TAG_IMAGE
+
 test $? -ne 0 && abort "Falha no build da image --> ${TAG_IMAGE}" || ok "Build image ok --> ${TAG_IMAGE}"
 
 # Push (Send image to Registry)

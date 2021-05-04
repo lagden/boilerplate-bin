@@ -1,12 +1,25 @@
 #!/usr/bin/env node
 
-'use strict'
+import path from 'node:path'
+import {promises, createWriteStream} from 'node:fs'
 
-const path = require('path')
-const {createWriteStream} = require('fs')
+async function read(file, options = {}) {
+	let filehandle
+	let content
+	try {
+		filehandle = await promises.open(file, 'r')
+		content = await filehandle.readFile(options)
+	} finally {
+		if (filehandle) {
+			await filehandle.close()
+		}
+	}
+	return content
+}
 
 const packageFile = path.resolve(process.cwd(), 'package.json')
-const packageJson = require(packageFile)
+const packageBuf = await read(packageFile)
+const packageJson = JSON.parse(packageBuf)
 
 function _error(message) {
 	process.stderr.write(message)

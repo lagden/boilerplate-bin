@@ -40,43 +40,43 @@ yarn dlx degit lagden/boilerplate-docker-nodejs/files#main ./ --force
 
 ## Scripts
 
-Legenda:
+Índice:
 
 ```
-- helper - são scripts utilizados internamente por outros scripts
-- local  - são scripts utilizados apenas local
-- docker - são scripts utilizados no docker
+- docker
+  - deploy
+  - image
+  - start
+  - stop
+  - test
+  - wait
+  - watch
+- front
+  - gen_env
+  - public
+- helper
+  - fn
+- local
+  - start
+  - test
+  - watch
+- node
+  - pkg.js
+  - prod.js
+  - zera
 ```
 
 ---
 
+### Docker
 
-### \_fn (helper)
-
-Métodos utilizados pelos scripts.
-
-
-### image (local)
-
-Cria a imagem do projeto e faz um `push` para o **resgistry** configurado.
-
-
-```
-Usage: image [options]
-
-Options:
-  -e <production|staging>  Environment
-  -h                       Show usage
-```
-
-
-### deploy (local)
+#### deploy
 
 O fluxo do **deploy**:
 
 1. Carrega as variáveis de ambiente
 2. Executa o script `image`
-3. Cria o arquivo `docker-compose-{staging|production}.yml`
+3. Cria o arquivo `docker-compose-{VERSION}.yml`
 4. Sincroniza os arquivos com o servidor
 5. Executa o `docker stack deploy` no servidor
 
@@ -91,41 +91,21 @@ Options:
 ```
 
 
-### gen_env (helper)
+#### image
 
-Esse script é utilizado em aplicações frontend.  
-A função dele é gerar um arquivo **javascript** com as variáveis de ambiente.
-
-
-### public (helper)
-
-Esse script é utilizado em aplicações frontend.  
-A função dele é criar a pasta `public` e copiar o conteúdo da pasta `static` para `public`.
+Cria a imagem do projeto e faz um `push` para o **resgistry**.
 
 
-### prod (docker)
+```
+Usage: image [options]
 
-Remove as `devDependencies` do arquivo **package.json**.  
-Isso ocorre apenas no momento do build da imagem de `production` ou `stating`.
-
-
-### pkg (local)
-
-Atualiza para última versão todas as `dependencies` e `devDependencies` do arquivo **package.json**.  
-Mas é preciso executar o `yarn install` ou `zera` para instalar.
+Options:
+  -e <production|staging>  Environment
+  -h                       Show usage
+```
 
 
-### zera (local)
-
-Limpa todos os pacotes e reinstala novamente.
-
-
-### start_local (local)
-
-Carrega as variáveis de ambiente de **desenvolvimento** e inicia a aplicação.
-
-
-### start (local)
+#### start
 
 Inicia o stack de **desenvolvimento** via **docker**.
 
@@ -140,17 +120,12 @@ Options:
 ```
 
 
-### stop (local)
+#### stop
 
 Encerra o stack que foi inicializado via **docker** pelo script `start`.
 
 
-### test_local (local)
-
-Carrega as variáveis de ambiente de **teste** e executa o teste da aplicação.
-
-
-### test (local)
+#### test
 
 Executa o teste do stack via **docker**
 
@@ -164,7 +139,7 @@ Options:
 ```
 
 
-### wait (docker)
+#### wait
 
 Esse script é para garantir que os outros serviços estejam rodando antes de iniciar a aplicação.  
 Veja o exemplo abaixo:
@@ -180,23 +155,54 @@ command: >
 A aplicação só irá iniciar quando o `db` estiver respondendo na porta `3435`.
 
 
-### watch (docker)
+#### watch
 
 Esse script faz o **hot reload** da aplicação.
 
 
-### watch_local (local)
+### Front
 
-Igual `watch`, mas é para rodar local.  
+#### gen_env
+
+Esse script é utilizado em aplicações frontend.  
+A função dele é gerar um arquivo **javascript** com as variáveis de ambiente.
+
+
+#### public
+
+Esse script é utilizado em aplicações frontend.  
+A função dele é criar a pasta `public` e copiar o conteúdo da pasta `static` para `public`.
+
+
+### Helper
+
+#### fn
+
+Métodos utilizados pelos scripts.
+
+
+### Local
+
+#### start
+
+Carrega as variáveis de ambiente de **desenvolvimento** e inicia a aplicação.
+
+
+#### test
+
+Carrega as variáveis de ambiente de **teste** e executa o teste da aplicação.
+
+
+#### watch
+
 Para que funcione, é necessário fazer algumas instalações e configurações.
 
-
-#### entr
+##### entr
 
 Se estiver rodando em **BSD**, **Mac OS**, e **Linux**, basta instalar o [entr](https://github.com/eradman/entr).
 
 
-#### nodemon
+##### nodemon
 
 Como o [entr](https://github.com/eradman/entr) não roda no **Windows**, existe uma solução alternativa.
 
@@ -205,6 +211,28 @@ Crie o arquivo `.env-local` na raiz do projeto e insira:
 ```
 WATCH_LOCAL_CMD="yarn dlx nodemon -e js,json --watch server --exec npm start"
 ```
+
+
+### Node
+
+#### pkg.js
+
+Atualiza para última versão todas as `dependencies` e `devDependencies` do arquivo **package.json**.  
+Mas é preciso executar o `yarn install` ou `zera` para instalar.
+
+
+#### prod.js
+
+Remove as `devDependencies` do arquivo **package.json**.  
+Isso ocorre apenas no momento do build da imagem de `production` ou `stating`.
+
+
+#### zera
+
+Limpa todos os pacotes e reinstala novamente.
+
+
+---
 
 
 ## License
