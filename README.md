@@ -152,12 +152,6 @@ Esse script é utilizado em aplicações frontend.
 A função dele é gerar um arquivo **javascript** com as variáveis de ambiente.
 
 
-#### public
-
-Esse script é utilizado em aplicações frontend.  
-A função dele é criar a pasta `public` e copiar o conteúdo da pasta `static` para `public`.
-
-
 ### Helper
 
 #### fn
