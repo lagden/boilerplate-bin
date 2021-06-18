@@ -25,7 +25,7 @@ CURR_FOLDER="$(pwd)"
 cd $CURR_FOLDER
 
 BUILD=""
-SERVICE=""
+SERVICE="app"
 OPT="test"
 COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
 COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
@@ -70,11 +70,10 @@ docker-compose \
 	--force-recreate \
 	--always-recreate-deps \
 	--abort-on-container-exit \
-	--exit-code-from $SERVICE \
+	--exit-code-from ${SERVICE} \
 	--remove-orphans \
 	--renew-anon-volumes \
-	$BUILD \
-	$SERVICE
+	$BUILD
 
 if test $? -ne 0; then
 	_cleanup
