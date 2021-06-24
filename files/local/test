@@ -10,7 +10,7 @@ BIN_DIR="$(cd $DIR/.. && pwd)"
 CURR_FOLDER="$(pwd)"
 cd $CURR_FOLDER
 
-OPT="development"
+OPT="test"
 
 # ENV File
 load_env $OPT
