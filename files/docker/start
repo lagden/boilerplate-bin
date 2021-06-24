@@ -52,7 +52,7 @@ if test "${REQUIRE_GEN:-0}" = "1"; then
 	gen_env "${CURR_FOLDER}/resource/env.js"
 fi
 
-docker-compose \
+docker compose \
 	-f $COMPOSE_TEMPLATE \
 	-f $COMPOSE_LOCAL \
 	up \
