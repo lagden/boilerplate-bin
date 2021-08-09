@@ -9,7 +9,7 @@ Utilizados nos projetos:
 - [Boilerplate Svelte](https://github.com/lagden/boilerplate-svelte)
 
 
-## Instalação
+## Instalação (opcional)
 
 ⚠️ **Importante**
 
@@ -30,11 +30,15 @@ Esses scripts dependem de uma estrutura específica para que funcionem adequadam
 **Exemplo:**
 
 ```shell
-yarn dlx degit lagden/boilerplate-rest#master meu_app
-cd meu_app
+cd meu_projeto
 yarn dlx degit lagden/boilerplate-bin/files#main bin
-yarn dlx degit lagden/boilerplate-envs/files#main ./ --force
-yarn dlx degit lagden/boilerplate-docker-nodejs/files#main ./ --force
+```
+
+ou
+
+```shell
+cd meu_projeto
+npx degit lagden/boilerplate-bin/files#main bin
 ```
 
 
@@ -63,7 +67,8 @@ yarn dlx degit lagden/boilerplate-docker-nodejs/files#main ./ --force
 - node
   - pkg.js
   - prod.js
-  - zera
+  - zera_npm
+  - zera_yarn
 ```
 
 ---
@@ -206,13 +211,23 @@ Crie o arquivo `.env-local` na raiz do projeto e insira:
 WATCH_LOCAL_CMD="yarn dlx nodemon -e js,json --watch server --exec npm start"
 ```
 
+ou
+
+```
+WATCH_LOCAL_CMD="npx nodemon -e js,json --watch server --exec npm start"
+```
+
 
 ### Node
 
 #### pkg.js
 
 Atualiza para última versão todas as `dependencies` e `devDependencies` do arquivo **package.json**.  
-Mas é preciso executar o `yarn install` ou `zera` para instalar.
+Mas é preciso executar alguns do comandos abaixo para instalar:
+
+- `yarn install`
+- `npm install`
+- `zera_*`
 
 
 #### prod.js
@@ -221,9 +236,22 @@ Remove as `devDependencies` do arquivo **package.json**.
 Isso ocorre apenas no momento do build da imagem de `production` ou `stating`.
 
 
-#### zera
+#### zera_npm
 
-Limpa todos os pacotes e reinstala novamente.
+Limpa todos os pacotes e reinstala novamente via NPM.
+
+
+#### zera_yarn
+
+Limpa todos os pacotes e reinstala novamente via Yarn.
+
+```
+Usage: zera_yarn [options]
+
+Options:
+  -g      Generate .yarnrc.yml
+  -h      Show usage
+```
 
 
 ---
