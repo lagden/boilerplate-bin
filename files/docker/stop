@@ -14,8 +14,6 @@ OPT="development"
 COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
 COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
 
-export DOCKERFILE="${CURR_FOLDER}/Dockerfile.dev"
-
 # ENV File
 load_env $OPT
 
