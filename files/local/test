@@ -6,6 +6,15 @@ BIN_DIR="$(cd $DIR/.. && pwd)"
 # Import functions
 . $BIN_DIR/helper/fn
 
+UPDATE_SNAPSHOT=""
+while getopts ":u" o
+do
+	case ${o} in
+		u) UPDATE_SNAPSHOT="-- -u" ;;
+		\?) abort "Invalid option"
+	esac
+done
+
 # Go to current directory
 CURR_FOLDER="$(pwd)"
 cd $CURR_FOLDER
@@ -20,6 +29,7 @@ if test "${REQUIRE_GEN:-0}" = "1"; then
 	gen_env "${CURR_FOLDER}/resource/env.js"
 fi
 
-$TEST_CMD
+CMD="${TEST_CMD} ${UPDATE_SNAPSHOT}"
+$CMD
 
 exit 0
