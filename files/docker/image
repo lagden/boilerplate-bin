@@ -9,7 +9,7 @@ BIN_DIR="$(cd $DIR/.. && pwd)"
 usage() {
 	cat <<-EOF
 
-  Usage: $0 [options]
+  Usage: $0 [options...]
 
   Options:
     -e <production|staging>  Environment
@@ -25,11 +25,12 @@ cd $CURR_FOLDER
 
 OPT="staging"
 
-while getopts ":e:" o
+while getopts "e:h" o
 do
 	case ${o} in
 		e) [ $OPTARG = "staging" -o $OPTARG = "production" ] && OPT=$OPTARG || usage ;;
-		*) usage ;;
+		h) usage ;;
+		\?) usage ;;
 	esac
 done
 
@@ -45,6 +46,7 @@ fi
 REGISTRY_USER="$(cat ${CURR_FOLDER}/.registry-user)"
 REGISTRY_PASSWD="$(cat ${CURR_FOLDER}/.registry-passwd)"
 TAG_IMAGE="${REGISTRY}/${IMAGE}:${VERSION}"
+TAG_IMAGE_LATEST="${REGISTRY}/${IMAGE}:latest"
 
 # Build
 docker build \
@@ -52,13 +54,16 @@ docker build \
 	--target main \
 	--compress \
 	--force-rm \
-	--no-cache . --tag $TAG_IMAGE
+	--no-cache . \
+	--tag $TAG_IMAGE \
+	--tag $TAG_IMAGE_LATEST
 
 test $? -ne 0 && abort "Falha no build da image --> ${TAG_IMAGE}" || ok "Build image ok --> ${TAG_IMAGE}"
 
 # Push (Send image to Registry)
 cat ${CURR_FOLDER}/.registry-passwd | docker login $REGISTRY --username $REGISTRY_USER --password-stdin
 docker push $TAG_IMAGE
+docker push $TAG_IMAGE_LATEST
 
 # # Cleanup
 # docker rmi $(docker images -q -f "dangling=true" -f "label=autodelete=true")

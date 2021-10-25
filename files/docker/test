@@ -9,7 +9,7 @@ BIN_DIR="$(cd $DIR/.. && pwd)"
 usage() {
 	cat <<-EOF
 
-  Usage: $0 [options]
+  Usage: $0 [options...]
 
   Options:
     -b            Build image
@@ -43,12 +43,13 @@ _cleanup() {
 
 trap '_cleanup; abort "Tests failed for unexpected reasons"' HUP INT QUIT PIPE TERM SIGINT SIGTERM
 
-while getopts ":bs:" o
+while getopts "bs:h" o
 do
 	case ${o} in
 		b) BUILD="--build" ;;
 		s) SERVICE=$OPTARG ;;
-		*) usage ;;
+		h) usage ;;
+		\?) usage ;;
 	esac
 done
 

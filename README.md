@@ -54,9 +54,6 @@ npx degit lagden/boilerplate-bin/files#main bin
   - stop
   - test
   - watch
-- front
-  - gen_env
-  - public
 - helper
   - fn
   - wait
@@ -65,10 +62,10 @@ npx degit lagden/boilerplate-bin/files#main bin
   - test
   - watch
 - node
+  - envs
   - pkg.js
   - prod.js
-  - zera_npm
-  - zera_yarn
+  - zera
 ```
 
 ---
@@ -87,7 +84,7 @@ O fluxo do **deploy**:
 
 
 ```
-Usage: deploy [options]
+Usage: deploy [options...]
 
 Options:
   -i                       Ignore build image
@@ -102,7 +99,7 @@ Cria a imagem do projeto e faz um `push` para o **resgistry**.
 
 
 ```
-Usage: image [options]
+Usage: image [options...]
 
 Options:
   -e <production|staging>  Environment
@@ -115,7 +112,7 @@ Options:
 Inicia o stack de **desenvolvimento** via **docker**.
 
 ```
-Usage: start [options]
+Usage: start [options...]
 
 Options:
   -b            Build image
@@ -135,7 +132,7 @@ Encerra o stack que foi inicializado via **docker** pelo script `start`.
 Executa o teste do stack via **docker**
 
 ```
-Usage: test [options]
+Usage: test [options...]
 
 Options:
   -b            Build image
@@ -146,15 +143,7 @@ Options:
 
 #### watch
 
-Esse script faz o **hot reload** da aplicação.
-
-
-### Front
-
-#### gen_env
-
-Esse script é utilizado em aplicações frontend.  
-A função dele é gerar um arquivo **javascript** com as variáveis de ambiente.
+Esse script faz o **reload** da aplicação.
 
 
 ### Helper
@@ -220,14 +209,16 @@ WATCH_LOCAL_CMD="npx nodemon -e js,json --watch server --exec npm start"
 
 ### Node
 
+#### envs
+
+Esse script é utilizado geralmente em aplicações frontend.  
+A função dele é gerar um arquivo **javascript** com as variáveis de ambiente.
+
+
 #### pkg.js
 
 Atualiza para última versão todas as `dependencies` e `devDependencies` do arquivo **package.json**.  
-Mas é preciso executar alguns do comandos abaixo para instalar:
-
-- `yarn install`
-- `npm install`
-- `zera_*`
+Mas é preciso que seja instalado novamente via **npm** ou **yarn**.
 
 
 #### prod.js
@@ -236,21 +227,20 @@ Remove as `devDependencies` do arquivo **package.json**.
 Isso ocorre apenas no momento do build da imagem de `production` ou `stating`.
 
 
-#### zera_npm
+#### zera
 
-Limpa todos os pacotes e reinstala novamente via NPM.
+Limpa todos os pacotes e reinstala novamente via **npm** ou **yarn**.
 
-
-#### zera_yarn
-
-Limpa todos os pacotes e reinstala novamente via Yarn.
 
 ```
-Usage: zera_yarn [options]
+Usage: zera [-n|-yg] [-vh]
 
 Options:
-  -g      Generate .yarnrc.yml
-  -h      Show usage
+  -n           Install packages via npm
+  -y           Install packages via yarn
+  -g           Generate .yarnrc.yml
+  -v           Verbose
+  -h           Show usage
 ```
 
 

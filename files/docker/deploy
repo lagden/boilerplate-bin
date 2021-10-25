@@ -9,7 +9,7 @@ BIN_DIR="$(cd $DIR/.. && pwd)"
 usage() {
 	cat <<-EOF
 
-  Usage: $0 [options]
+  Usage: $0 [options...]
 
   Options:
     -i                       Ignore build image
@@ -27,12 +27,13 @@ cd $CURR_FOLDER
 BUILD=1
 OPT="staging"
 
-while getopts ":ie:" o
+while getopts "ie:h" o
 do
 	case ${o} in
 		i) BUILD=0 ;;
 		e) test $OPTARG = "staging" -o $OPTARG = "production" && OPT=$OPTARG || usage ;;
-		*) usage ;;
+		h) usage ;;
+		\?) usage ;;
 	esac
 done
 
