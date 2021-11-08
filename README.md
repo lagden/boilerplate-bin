@@ -13,11 +13,11 @@ Utilizados nos projetos:
 
 ⚠️ **Importante**
 
-Instale o [Yarn 2 aka Berry](https://yarnpkg.com/getting-started/install).
+Instale o [Yarn](https://yarnpkg.com/getting-started/install).
 
 ```
 npm install -g yarn
-yarn set version berry
+yarn set version stable
 ```
 
 
@@ -46,27 +46,24 @@ npx degit lagden/boilerplate-bin/files#main bin
 
 Índice:
 
-```
-- docker
-  - deploy
-  - image
-  - start
-  - stop
-  - test
-  - watch
-- helper
-  - fn
-  - wait
-- local
-  - start
-  - test
-  - watch
-- node
-  - envs
-  - pkg.js
-  - prod.js
-  - zera
-```
+- [Docker](#docker)
+    - [deploy](#deploy)
+    - [image](#image)
+    - [start](#start)
+    - [stop](#stop)
+    - [test](#test)
+    - [watch](#watch)
+- [Helper](#helper)
+    - [fn](#fn)
+    - [wait](#wait)
+- [Local](#local)
+    - [start](#start-1)
+    - [test](#test)
+- [Node](#Node)
+    - [envs](#envs)
+    - [pkg.js](#pkg.js)
+    - [prod.js](#prod.js)
+    - [zera](#zera)
 
 ---
 
@@ -175,15 +172,17 @@ A aplicação só irá iniciar quando o `db` estiver respondendo na porta `3435`
 
 Carrega as variáveis de ambiente de **desenvolvimento** e inicia a aplicação.
 
+```
+Usage: start [-w]
 
-#### test
+Options:
+  -w     Watch and reload application
+  -h     Show usage
+```
 
-Carrega as variáveis de ambiente de **teste** e executa o teste da aplicação.
+⚠️ **Atenção**
 
-
-#### watch
-
-Para que funcione, é necessário fazer algumas instalações e configurações.
+Para que a opção `-w` funcione, é necessário fazer algumas instalações e configurações.
 
 ##### entr
 
@@ -205,6 +204,11 @@ ou
 ```
 WATCH_LOCAL_CMD="npx nodemon -e js,json --watch server --exec npm start"
 ```
+
+
+#### test
+
+Carrega as variáveis de ambiente de **teste** e executa o teste da aplicação.
 
 
 ### Node
