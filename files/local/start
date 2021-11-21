@@ -29,7 +29,7 @@ OPT="development"
 unset WATCH
 WATCH=false
 
-while getopts "uh" o
+while getopts "wh" o
 do
 	case ${o} in
 		w) WATCH=true ;;
