@@ -47,11 +47,12 @@ REGISTRY_USER="$(cat ${CURR_FOLDER}/.registry-user)"
 REGISTRY_PASSWD="$(cat ${CURR_FOLDER}/.registry-passwd)"
 TAG_IMAGE="${REGISTRY}/${IMAGE}:${VERSION}"
 TAG_IMAGE_LATEST="${REGISTRY}/${IMAGE}:latest"
+DOCKER_TARGET_BUILD="${DOCKER_TARGET:-main}"
 
 # Build
 docker build \
 	--build-arg NODE_ENV=${NODE_ENV} \
-	--target main \
+	--target $DOCKER_TARGET_BUILD \
 	--compress \
 	--force-rm \
 	--no-cache . \
