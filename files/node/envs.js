@@ -10,9 +10,8 @@ const template = `const envs = {}
 
 ${envs.join('\n')}
 
-export default envs
+export default envs`
 
-`
-
-process.stderr.write(template)
+// process.stderr.write(template)
+console.log(template)
 process.exit(0)
