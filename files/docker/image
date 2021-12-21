@@ -47,7 +47,7 @@ REGISTRY_USER="$(cat ${CURR_FOLDER}/.registry-user)"
 REGISTRY_PASSWD="$(cat ${CURR_FOLDER}/.registry-passwd)"
 TAG_IMAGE="${REGISTRY}/${IMAGE}:${VERSION}"
 TAG_IMAGE_LATEST="${REGISTRY}/${IMAGE}:latest"
-DOCKER_TARGET_BUILD="${DOCKER_TARGET:-main}"
+DOCKER_TARGET_BUILD="${DOCKER_TARGET_BUILD:-main}"
 
 # Build
 docker build \
@@ -55,16 +55,20 @@ docker build \
 	--target $DOCKER_TARGET_BUILD \
 	--compress \
 	--force-rm \
-	--no-cache . \
 	--tag $TAG_IMAGE \
-	--tag $TAG_IMAGE_LATEST
+	--tag $TAG_IMAGE_LATEST \
+	--no-cache .
+	# --no-cache . 2> .docker-buid.log
 
 test $? -ne 0 && abort "Falha no build da image --> ${TAG_IMAGE}" || ok "Build image ok --> ${TAG_IMAGE}"
 
 # Push (Send image to Registry)
 cat ${CURR_FOLDER}/.registry-passwd | docker login $REGISTRY --username $REGISTRY_USER --password-stdin
 docker push $TAG_IMAGE
-docker push $TAG_IMAGE_LATEST
+
+if test "${OPT}" = "production"; then
+	docker push $TAG_IMAGE_LATEST
+fi
 
 # # Cleanup
 # docker rmi $(docker images -q -f "dangling=true" -f "label=autodelete=true")
