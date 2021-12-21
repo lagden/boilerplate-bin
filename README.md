@@ -60,7 +60,7 @@ npx degit lagden/boilerplate-bin/files#main bin
     - [start](#start-1)
     - [test](#test)
 - [Node](#Node)
-    - [envs](#envs)
+    - [envs.js](#envs)
     - [pkg.js](#pkg.js)
     - [prod.js](#prod.js)
     - [zera](#zera)
@@ -163,7 +163,7 @@ command: >
   "
 ```
 
-A aplicação só irá iniciar quando o `db` estiver respondendo na porta `3435`.
+A aplicação só irá iniciar quando o serviço `db` estiver respondendo na porta `3435`.
 
 
 ### Local
@@ -213,7 +213,7 @@ Carrega as variáveis de ambiente de **teste** e executa o teste da aplicação.
 
 ### Node
 
-#### envs
+#### envs.js
 
 Esse script é utilizado geralmente em aplicações frontend.  
 A função dele é gerar um arquivo **javascript** com as variáveis de ambiente.
