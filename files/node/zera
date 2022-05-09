@@ -65,6 +65,7 @@ rm -rf \
 
 if [ "${ACTION}" = "yarn" ] && $GEN; then
 	echo "nodeLinker: node-modules" > "${CURR_FOLDER}/.yarnrc.yml"
+	yarn set version stable
 fi
 
 $ACTION install
