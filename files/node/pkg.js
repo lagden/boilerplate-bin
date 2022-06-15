@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 import path from 'node:path'
-import {promises, createWriteStream} from 'node:fs'
+import {createWriteStream} from 'node:fs'
+import {readFile} from 'node:fs/promises'
 import {promisify} from 'node:util'
 import child_process from 'node:child_process'
 
