@@ -12,9 +12,9 @@ usage() {
   Usage: $0 [options...]
 
   Options:
-    -i                       Ignore build image
-    -e <staging|production>  Environment
-    -h                       Show usage
+    -i                         Ignore build image
+    -e <qa|staging|production> Environment
+    -h                         Show usage
 
 EOF
 exit 0
@@ -31,7 +31,7 @@ while getopts "ie:h" o
 do
 	case ${o} in
 		i) BUILD=0 ;;
-		e) test $OPTARG = "staging" -o $OPTARG = "production" && OPT=$OPTARG || usage ;;
+		e) test $OPTARG = "qa" -o $OPTARG = "staging" -o $OPTARG = "production" && OPT=$OPTARG || usage ;;
 		h) usage ;;
 		\?) usage ;;
 	esac

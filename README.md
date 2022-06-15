@@ -9,7 +9,7 @@ Utilizados nos projetos:
 - [Boilerplate Svelte](https://github.com/lagden/boilerplate-svelte)
 
 
-## Instalação (opcional)
+## Instalação
 
 ⚠️ **Importante**
 
@@ -17,7 +17,6 @@ Instale o [Yarn](https://yarnpkg.com/getting-started/install).
 
 ```
 npm install -g yarn
-yarn set version stable
 ```
 
 
@@ -31,7 +30,7 @@ Esses scripts dependem de uma estrutura específica para que funcionem adequadam
 
 ```shell
 cd meu_projeto
-yarn dlx degit lagden/boilerplate-bin/files#main bin
+npx tiged lagden/boilerplate-bin/files#main bin
 ```
 
 ou
@@ -84,9 +83,9 @@ O fluxo do **deploy**:
 Usage: deploy [options...]
 
 Options:
-  -i                       Ignore build image
-  -e <staging|production>  Environment
-  -h                       Show usage
+  -i                         Ignore build image
+  -e <qa|staging|production> Environment
+  -h                         Show usage
 ```
 
 
@@ -99,8 +98,8 @@ Cria a imagem do projeto e faz um `push` para o **resgistry**.
 Usage: image [options...]
 
 Options:
-  -e <production|staging>  Environment
-  -h                       Show usage
+  -e <qa|staging|production> Environment
+  -h                         Show usage
 ```
 
 
@@ -242,7 +241,6 @@ Usage: zera [-n|-yg] [-vh]
 Options:
   -n           Install packages via npm
   -y           Install packages via yarn
-  -g           Generate .yarnrc.yml
   -v           Verbose
   -h           Show usage
 ```

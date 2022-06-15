@@ -12,8 +12,8 @@ usage() {
   Usage: $0 [options...]
 
   Options:
-    -e <production|staging>  Environment
-    -h                       Show usage
+    -e <qa|staging|production> Environment
+    -h                         Show usage
 
 EOF
 exit 0
@@ -28,7 +28,7 @@ OPT="staging"
 while getopts "e:h" o
 do
 	case ${o} in
-		e) [ $OPTARG = "staging" -o $OPTARG = "production" ] && OPT=$OPTARG || usage ;;
+		e) test $OPTARG = "qa" -o $OPTARG = "staging" -o $OPTARG = "production" && OPT=$OPTARG || usage ;;
 		h) usage ;;
 		\?) usage ;;
 	esac

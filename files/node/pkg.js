@@ -5,26 +5,16 @@ import {promises, createWriteStream} from 'node:fs'
 import {promisify} from 'node:util'
 import child_process from 'node:child_process'
 
-async function read(file, options = {}) {
-	let filehandle
-	let content
-	try {
-		filehandle = await promises.open(file, 'r')
-		content = await filehandle.readFile(options)
-	} finally {
-		if (filehandle) {
-			await filehandle.close()
-		}
-	}
-	return content
-}
-
 const exec = promisify(child_process.exec)
-const packageFile = path.resolve(process.cwd(), 'package.json')
-const packageBuf = await read(packageFile)
+
+const packageFile = new URL(path.resolve(process.cwd(), 'package.json'), import.meta.url)
+const packageBuf = await readFile(packageFile)
 const packageJson = JSON.parse(packageBuf)
 
-const {dependencies, devDependencies} = packageJson
+const {
+	dependencies,
+	devDependencies,
+} = packageJson
 
 let cc = 0
 
