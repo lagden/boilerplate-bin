@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import path from 'node:path'
+import {pathToFileURL} from 'node:url'
 import {createWriteStream} from 'node:fs'
 import {readFile} from 'node:fs/promises'
 import {promisify} from 'node:util'
@@ -8,7 +9,7 @@ import child_process from 'node:child_process'
 
 const exec = promisify(child_process.exec)
 
-const packageFile = new URL(path.resolve(process.cwd(), 'package.json'), import.meta.url)
+const packageFile = pathToFileURL(path.resolve(process.cwd(), 'package.json'))
 const packageBuf = await readFile(packageFile)
 const packageJson = JSON.parse(packageBuf)
 
