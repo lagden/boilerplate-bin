@@ -10,12 +10,11 @@ BIN_DIR="$(cd $DIR/.. && pwd)"
 usage() {
 	cat <<-EOF
 
-  Usage: $0 [-n|-yg] [-vh]
+  Usage: $0 [-n|-y] [-vh]
 
   Options:
     -n           Install packages via npm
     -y           Install packages via yarn
-    -g           Generate .yarnrc.yml
     -v           Verbose
     -h           Show usage
 
