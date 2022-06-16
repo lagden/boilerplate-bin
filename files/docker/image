@@ -63,12 +63,15 @@ docker build \
 test $? -ne 0 && abort "Falha no build da image --> ${TAG_IMAGE}" || ok "Build image ok --> ${TAG_IMAGE}"
 
 # Push (Send image to Registry)
-cat ${CURR_FOLDER}/.registry-passwd | docker login $REGISTRY --username $REGISTRY_USER --password-stdin
-docker push $TAG_IMAGE
+if test "${REGISTRY_GOOGLE_CLOUD:-0}" = "0"; then
+	cat ${CURR_FOLDER}/.registry-passwd | docker login $REGISTRY --username $REGISTRY_USER --password-stdin
+fi
 
 if test "${OPT}" = "production"; then
 	docker push $TAG_IMAGE_LATEST
 fi
+
+docker push $TAG_IMAGE
 
 # # Cleanup
 # docker rmi $(docker images -q -f "dangling=true" -f "label=autodelete=true")
