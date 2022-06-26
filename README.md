@@ -172,10 +172,11 @@ A aplicação só irá iniciar quando o serviço `db` estiver respondendo na por
 Carrega as variáveis de ambiente de **desenvolvimento** e inicia a aplicação.
 
 ```
-Usage: start [-w]
+Usage: start [-wb]
 
 Options:
   -w     Watch and reload application
+  -b     Just build the application
   -h     Show usage
 ```
 

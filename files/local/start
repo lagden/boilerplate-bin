@@ -10,10 +10,11 @@ BIN_DIR="$(cd $DIR/.. && pwd)"
 usage() {
 	cat <<-EOF
 
-  Usage: $0 [-w]
+  Usage: $0 [-wb]
 
   Options:
     -w     Watch and reload application
+    -b     Just build the application
     -h     Show usage
 
 EOF
@@ -29,10 +30,14 @@ OPT="development"
 unset WATCH
 WATCH=false
 
-while getopts "wh" o
+unset BUILD
+BUILD=false
+
+while getopts "wbh" o
 do
 	case ${o} in
 		w) WATCH=true ;;
+		b) BUILD=true ;;
 		h) usage ;;
 		\?) usage ;;
 	esac
@@ -40,6 +45,17 @@ done
 
 # ENV File
 load_env $OPT
+
+# Just build
+if $BUILD; then
+	ok "Building cmd: ${BUILD_LOCAL_CMD}"
+	gen_env "${CURR_FOLDER}/resource/env.js"
+	$BUILD_LOCAL_CMD
+	if test $? -ne 0; then
+		abort "Build failed"
+	fi
+	exit 0
+fi
 
 # Generate ENVs for frontend application
 if test "${REQUIRE_GEN:-0}" = "1"; then
