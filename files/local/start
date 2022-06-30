@@ -72,7 +72,7 @@ if $WATCH; then
 		abort "Watch failed"
 	fi
 else
-	$START_CMD
+	eval ${START_CMD}
 fi
 
 exit 0
