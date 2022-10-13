@@ -10,11 +10,12 @@ BIN_DIR="$(cd $DIR/.. && pwd)"
 usage() {
 	cat <<-EOF
 
-  Usage: $0 [-n|-y] [-vh]
+  Usage: $0 [-n|-y|-p] [-vh]
 
   Options:
     -n           Install packages via npm
     -y           Install packages via yarn
+    -p           Install packages via pnpm
     -v           Verbose
     -h           Show usage
 
@@ -34,12 +35,13 @@ GEN=false
 
 unset ACTION
 
-while getopts 'nyvh' c
+while getopts 'nypvh' c
 do
 	# echo "Processing $c : OPTIND is $OPTIND"
 	case $c in
 		n) ACTION=npm ;;
 		y) ACTION=yarn ;;
+		p) ACTION=pnpm ;;
 		v) VERBOSE=true ;;
 		h) usage ;;
 		\?) usage ;;
@@ -59,16 +61,16 @@ rm -rf \
 	"${CURR_FOLDER}/package-lock.json" \
 	"${CURR_FOLDER}/yarn.lock" \
 	"${CURR_FOLDER}/.yarn" \
-	"${CURR_FOLDER}/.pnp.*"
+	"${CURR_FOLDER}/.pnp.*" \
+	"${CURR_FOLDER}/pnpm-lock.yaml"
 
 if [ "${ACTION}" = "yarn" ]; then
 	echo "" > "${CURR_FOLDER}/.yarnrc.yml"
-	yarn set version berry
 	yarn set version stable
 	echo "nodeLinker: node-modules" >> "${CURR_FOLDER}/.yarnrc.yml"
 fi
 
 $ACTION install
 test $? -ne 0 && abort "${ACTION} failed" || ok "zerado..."
-test "${ACTION}" = "yarn" && yarn npm audit || npm audit
+test "${ACTION}" = "yarn" && yarn npm audit || $ACTION audit
 exit 0
