@@ -52,8 +52,6 @@ done
 # Check command available
 [[ ! " ${CMD_AVAILABLE[*]} " =~ " ${ACTION} " ]] && usage
 
-abort "${ACTION} choose"
-
 # Go to current directory
 cd $CURR_FOLDER
 
