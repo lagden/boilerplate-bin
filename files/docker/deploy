@@ -12,8 +12,8 @@ usage() {
   Usage: $0 [options...]
 
   Options:
+    -e <staging|production>    Environment
     -i                         Ignore build image
-    -e <qa|staging|production> Environment
     -h                         Show usage
 
 EOF
@@ -24,18 +24,27 @@ exit 0
 CURR_FOLDER="$(pwd)"
 cd $CURR_FOLDER
 
+unset BUILD
 BUILD=1
+
+unset OPT
 OPT="staging"
+
+unset OPT_AVAILABLE
+OPT_AVAILABLE=("staging" "production")
 
 while getopts "ie:h" o
 do
 	case ${o} in
 		i) BUILD=0 ;;
-		e) test $OPTARG = "qa" -o $OPTARG = "staging" -o $OPTARG = "production" && OPT=$OPTARG || usage ;;
+		e) OPT=$OPTARG ;;
 		h) usage ;;
 		\?) usage ;;
 	esac
 done
+
+# Check option available
+[[ ! " ${OPT_AVAILABLE[*]} " =~ " ${OPT} " ]] && usage
 
 # ENV File
 load_env $OPT

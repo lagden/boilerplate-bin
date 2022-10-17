@@ -7,17 +7,7 @@ Utilizados nos projetos:
 - [Boilerplate Rest](https://github.com/lagden/boilerplate-rest)
 - [Boilerplate GraphQL](https://github.com/lagden/boilerplate-gql)
 - [Boilerplate Svelte](https://github.com/lagden/boilerplate-svelte)
-
-
-## Instalação
-
-⚠️ **Importante**
-
-Instale o [Yarn](https://yarnpkg.com/getting-started/install).
-
-```
-npm install -g yarn
-```
+- [Boilerplate Websocket](https://github.com/lagden/boilerplate-ws)
 
 
 ## Como usar
@@ -31,13 +21,6 @@ Esses scripts dependem de uma estrutura específica para que funcionem adequadam
 ```shell
 cd meu_projeto
 npx tiged lagden/boilerplate-bin/files#main bin
-```
-
-ou
-
-```shell
-cd meu_projeto
-npx degit lagden/boilerplate-bin/files#main bin
 ```
 
 
@@ -83,8 +66,8 @@ O fluxo do **deploy**:
 Usage: deploy [options...]
 
 Options:
+  -e <staging|production>    Environment
   -i                         Ignore build image
-  -e <qa|staging|production> Environment
   -h                         Show usage
 ```
 
@@ -98,7 +81,7 @@ Cria a imagem do projeto e faz um `push` para o **resgistry**.
 Usage: image [options...]
 
 Options:
-  -e <qa|staging|production> Environment
+  -e <staging|production>    Environment
   -h                         Show usage
 ```
 
@@ -233,17 +216,15 @@ Isso ocorre apenas no momento do build da imagem de `production` ou `stating`.
 
 #### zera
 
-Limpa todos os pacotes e reinstala novamente via **npm** ou **yarn**.
+Limpa todos os pacotes e reinstala novamente via **npm**, **yarn** ou **pnpm**.
 
 
 ```
-Usage: zera [-n|-yg] [-vh]
+Usage: zera [options...]
 
 Options:
-  -n           Install packages via npm
-  -y           Install packages via yarn
-  -v           Verbose
-  -h           Show usage
+  -m, --manager <manager>  Package manager: npm (default), yarn or pnpm
+  -h, --help               Show usage
 ```
 
 

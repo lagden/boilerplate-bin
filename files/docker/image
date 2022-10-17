@@ -12,7 +12,7 @@ usage() {
   Usage: $0 [options...]
 
   Options:
-    -e <qa|staging|production> Environment
+    -e <staging|production>    Environment
     -h                         Show usage
 
 EOF
