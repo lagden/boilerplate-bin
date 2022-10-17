@@ -6,8 +6,8 @@ Utilizados nos projetos:
 
 - [Boilerplate Rest](https://github.com/lagden/boilerplate-rest)
 - [Boilerplate GraphQL](https://github.com/lagden/boilerplate-gql)
-- [Boilerplate Svelte](https://github.com/lagden/boilerplate-svelte)
 - [Boilerplate Websocket](https://github.com/lagden/boilerplate-ws)
+- [Boilerplate Svelte](https://github.com/lagden/boilerplate-svelte)
 
 
 ## Como usar
@@ -20,7 +20,7 @@ Esses scripts dependem de uma estrutura específica para que funcionem adequadam
 
 ```shell
 cd meu_projeto
-npx tiged lagden/boilerplate-bin/files#main bin
+npx tiged lagden/boilerplate-bin/files#main bin --force
 ```
 
 
@@ -66,7 +66,7 @@ O fluxo do **deploy**:
 Usage: deploy [options...]
 
 Options:
-  -e <staging|production>    Environment
+  -e <qa|staging|production> Environment
   -i                         Ignore build image
   -h                         Show usage
 ```
@@ -81,7 +81,7 @@ Cria a imagem do projeto e faz um `push` para o **resgistry**.
 Usage: image [options...]
 
 Options:
-  -e <staging|production>    Environment
+  -e <qa|staging|production> Environment
   -h                         Show usage
 ```
 
@@ -167,12 +167,12 @@ Options:
 
 Para que a opção `-w` funcione, é necessário fazer algumas instalações e configurações.
 
-##### entr
+##### entr (deprecated)
 
 Se estiver rodando em **BSD**, **Mac OS**, e **Linux**, basta instalar o [entr](https://github.com/eradman/entr).
 
 
-##### nodemon
+##### nodemon (deprecated)
 
 Como o [entr](https://github.com/eradman/entr) não roda no **Windows**, existe uma solução alternativa.
 

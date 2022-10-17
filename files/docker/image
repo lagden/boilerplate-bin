@@ -12,8 +12,8 @@ usage() {
   Usage: $0 [options...]
 
   Options:
-    -e <staging|production>    Environment
-    -h                         Show usage
+    -e <qa|staging|production>  Environment
+    -h                          Show usage
 
 EOF
 exit 0
@@ -23,16 +23,23 @@ exit 0
 CURR_FOLDER="$(pwd)"
 cd $CURR_FOLDER
 
+unset OPT
 OPT="staging"
+
+unset OPT_AVAILABLE
+OPT_AVAILABLE=("qa" "staging" "production")
 
 while getopts "e:h" o
 do
 	case ${o} in
-		e) test $OPTARG = "qa" -o $OPTARG = "staging" -o $OPTARG = "production" && OPT=$OPTARG || usage ;;
+		e) OPT=$OPTARG ;;
 		h) usage ;;
 		\?) usage ;;
 	esac
 done
+
+# Check option available
+[[ ! " ${OPT_AVAILABLE[*]} " =~ " ${OPT} " ]] && usage
 
 # ENV File
 load_env $OPT

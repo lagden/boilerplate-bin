@@ -12,9 +12,9 @@ usage() {
   Usage: $0 [options...]
 
   Options:
-    -e <staging|production>    Environment
-    -i                         Ignore build image
-    -h                         Show usage
+    -e <qa|staging|production>  Environment
+    -i                          Ignore build image
+    -h                          Show usage
 
 EOF
 exit 0
@@ -31,7 +31,7 @@ unset OPT
 OPT="staging"
 
 unset OPT_AVAILABLE
-OPT_AVAILABLE=("staging" "production")
+OPT_AVAILABLE=("qa" "staging" "production")
 
 while getopts "ie:h" o
 do
