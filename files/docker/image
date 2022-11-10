@@ -50,8 +50,6 @@ if test "${REQUIRE_GEN:-0}" = "1"; then
 fi
 
 # Variables
-REGISTRY_USER="$(cat ${CURR_FOLDER}/.registry-user)"
-REGISTRY_PASSWD="$(cat ${CURR_FOLDER}/.registry-passwd)"
 TAG_IMAGE="${REGISTRY}/${IMAGE}:${VERSION}"
 TAG_IMAGE_LATEST="${REGISTRY}/${IMAGE}:latest"
 DOCKER_TARGET_BUILD="${DOCKER_TARGET_BUILD:-main}"
@@ -59,6 +57,7 @@ DOCKER_TARGET_BUILD="${DOCKER_TARGET_BUILD:-main}"
 # Build
 docker build \
 	--build-arg NODE_ENV=${NODE_ENV} \
+	--build-arg BUILD_ENV=${BUILD_ENV:-development} \
 	--build-arg PM=${PM:-npm} \
 	--target $DOCKER_TARGET_BUILD \
 	--compress \
@@ -72,6 +71,7 @@ test $? -ne 0 && abort "Falha no build da image --> ${TAG_IMAGE}" || ok "Build i
 
 # Push (Send image to Registry)
 if test "${REGISTRY_GOOGLE_CLOUD:-0}" = "0"; then
+	REGISTRY_USER="$(cat ${CURR_FOLDER}/.registry-user)"
 	cat ${CURR_FOLDER}/.registry-passwd | docker login $REGISTRY --username $REGISTRY_USER --password-stdin
 fi
 
