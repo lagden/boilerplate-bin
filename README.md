@@ -44,7 +44,6 @@ npx tiged lagden/boilerplate-bin/files#main bin --force
 - [Node](#Node)
     - [envs.js](#envs)
     - [pkg.js](#pkg.js)
-    - [prod.js](#prod.js)
     - [zera](#zera)
 
 ---
@@ -66,9 +65,9 @@ O fluxo do **deploy**:
 Usage: deploy [options...]
 
 Options:
-  -e <qa|staging|production> Environment
-  -i                         Ignore build image
-  -h                         Show usage
+  -e <staging|production> Environment
+  -i                      Ignore build image
+  -h                      Show usage
 ```
 
 
@@ -81,8 +80,8 @@ Cria a imagem do projeto e faz um `push` para o **resgistry**.
 Usage: image [options...]
 
 Options:
-  -e <qa|staging|production> Environment
-  -h                         Show usage
+  -e <staging|production> Environment
+  -h                      Show usage
 ```
 
 
@@ -155,12 +154,13 @@ A aplicação só irá iniciar quando o serviço `db` estiver respondendo na por
 Carrega as variáveis de ambiente de **desenvolvimento** e inicia a aplicação.
 
 ```
-Usage: start [-wb]
+Usage: $0 [options...]
 
 Options:
-  -w     Watch and reload application
-  -b     Just build the application
-  -h     Show usage
+  -e <development|staging|production>  Environment
+  -w                                   Watch and reload application
+  -b                                   Just build the application
+  -h                                   Show usage
 ```
 
 ⚠️ **Atenção**
@@ -208,23 +208,18 @@ Atualiza para última versão todas as `dependencies` e `devDependencies` do arq
 Mas é preciso que seja instalado novamente via **npm** ou **yarn**.
 
 
-#### prod.js
-
-Remove as `devDependencies` do arquivo **package.json**.  
-Isso ocorre apenas no momento do build da imagem de `production` ou `stating`.
-
-
 #### zera
 
 Limpa todos os pacotes e reinstala novamente via **npm**, **yarn** ou **pnpm**.
 
 
 ```
-Usage: zera [options...]
+  Usage: $0 [options...]
 
-Options:
-  -m, --manager <manager>  Package manager: npm (default), yarn or pnpm
-  -h, --help               Show usage
+  Options:
+    -m, --manager <manager>  Package manager: npm (default), yarn or pnpm
+    -s, --shame              Shamefully hoist (only pnpm)
+    -h, --help               Show usage
 ```
 
 

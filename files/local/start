@@ -10,12 +10,13 @@ BIN_DIR="$(cd $DIR/.. && pwd)"
 usage() {
 	cat <<-EOF
 
-  Usage: $0 [-wb]
+  Usage: $0 [options...]
 
   Options:
-    -w     Watch and reload application
-    -b     Just build the application
-    -h     Show usage
+    -e <development|staging|production>  Environment
+    -w                                   Watch and reload application
+    -b                                   Just build the application
+    -h                                   Show usage
 
 EOF
 exit 2
@@ -25,23 +26,31 @@ exit 2
 CURR_FOLDER="$(pwd)"
 cd $CURR_FOLDER
 
-OPT="development"
-
 unset WATCH
 WATCH=false
 
 unset BUILD
 BUILD=false
 
-while getopts "wbh" o
+unset OPT
+OPT="development"
+
+unset OPT_AVAILABLE
+OPT_AVAILABLE=("development" "staging" "production")
+
+while getopts "wbhe:" o
 do
 	case ${o} in
+		e) OPT=$OPTARG ;;
 		w) WATCH=true ;;
 		b) BUILD=true ;;
 		h) usage ;;
 		\?) usage ;;
 	esac
 done
+
+# Check option available
+[[ ! " ${OPT_AVAILABLE[*]} " =~ " ${OPT} " ]] && usage
 
 # ENV File
 load_env $OPT

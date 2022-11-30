@@ -12,8 +12,8 @@ usage() {
   Usage: $0 [options...]
 
   Options:
-    -e <qa|staging|production>  Environment
-    -h                          Show usage
+    -e <staging|production>  Environment
+    -h                       Show usage
 
 EOF
 exit 0
@@ -27,7 +27,7 @@ unset OPT
 OPT="staging"
 
 unset OPT_AVAILABLE
-OPT_AVAILABLE=("qa" "staging" "production")
+OPT_AVAILABLE=("staging" "production")
 
 while getopts "e:h" o
 do
@@ -57,7 +57,6 @@ DOCKER_TARGET_BUILD="${DOCKER_TARGET_BUILD:-main}"
 # Build
 docker build \
 	--build-arg NODE_ENV=${NODE_ENV} \
-	--build-arg BUILD_ENV=${BUILD_ENV:-development} \
 	--build-arg PM=${PM:-npm} \
 	--target $DOCKER_TARGET_BUILD \
 	--compress \
