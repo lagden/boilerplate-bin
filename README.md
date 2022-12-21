@@ -167,12 +167,12 @@ Options:
 
 Para que a opção `-w` funcione, é necessário fazer algumas instalações e configurações.
 
-##### entr (deprecated)
+##### entr
 
 Se estiver rodando em **BSD**, **Mac OS**, e **Linux**, basta instalar o [entr](https://github.com/eradman/entr).
 
 
-##### nodemon (deprecated)
+##### nodemon
 
 Como o [entr](https://github.com/eradman/entr) não roda no **Windows**, existe uma solução alternativa.
 

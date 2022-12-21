@@ -55,20 +55,19 @@ done
 # ENV File
 load_env $OPT
 
+# Generate ENVs for frontend application
+if test "${REQUIRE_GEN:-0}" = "1"; then
+	gen_env "${CURR_FOLDER}/resource/env.js"
+fi
+
 # Just build
 if $BUILD; then
 	ok "Building cmd: ${BUILD_LOCAL_CMD}"
-	gen_env "${CURR_FOLDER}/resource/env.js"
 	$BUILD_LOCAL_CMD
 	if test $? -ne 0; then
 		abort "Build failed"
 	fi
 	exit 0
-fi
-
-# Generate ENVs for frontend application
-if test "${REQUIRE_GEN:-0}" = "1"; then
-	gen_env "${CURR_FOLDER}/resource/env.js"
 fi
 
 if $WATCH; then
