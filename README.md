@@ -34,7 +34,6 @@ npx tiged lagden/boilerplate-bin/files#main bin --force
     - [start](#start)
     - [stop](#stop)
     - [test](#test)
-    - [watch](#watch)
 - [Helper](#helper)
     - [fn](#fn)
     - [wait](#wait)
@@ -117,11 +116,6 @@ Options:
   -s <service>  Docker compose service name
   -h            Show usage
 ```
-
-
-#### watch
-
-Esse script faz o **reload** da aplicação.
 
 
 ### Helper
