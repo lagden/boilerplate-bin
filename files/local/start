@@ -26,6 +26,9 @@ exit 2
 CURR_FOLDER="$(pwd)"
 cd $CURR_FOLDER
 
+unset BUILD_CMD
+BUILD_CMD=false
+
 unset IGNORE_RUN
 IGNORE_RUN=false
 
@@ -62,11 +65,13 @@ fi
 
 # Build and RUN
 if $BUILD; then
-	ok "Building cmd: ${BUILD_CMD} ---> ${OPT}"
-	eval ${BUILD_CMD}
 
-	if test $? -ne 0; then
-		abort "Build failed"
+	if $BUILD_CMD; then
+		ok "Building cmd: ${BUILD_CMD} ---> ${OPT}"
+		eval ${BUILD_CMD}
+		if test $? -ne 0; then
+			abort "Build failed"
+		fi
 	fi
 
 	if $IGNORE_RUN; then
@@ -81,6 +86,7 @@ ok "Running cmd: ${WATCH_CMD}"
 
 # Watch
 eval ${WATCH_CMD}
+# $WATCH_CMD
 
 if test $? -ne 0; then
 	abort "Watch failed"
