@@ -158,34 +158,9 @@ Usage: $0 [options...]
 
 Options:
   -e <development|staging|production>  Environment
-  -w                                   Watch and reload application
-  -b                                   Just build the application
+  -b                                   Build and run the application
+  -i                                   Ignore run
   -h                                   Show usage
-```
-
-⚠️ **Atenção**
-
-Para que a opção `-w` funcione, é necessário fazer algumas instalações e configurações.
-
-##### entr
-
-Se estiver rodando em **BSD**, **Mac OS**, e **Linux**, basta instalar o [entr](https://github.com/eradman/entr).
-
-
-##### nodemon
-
-Como o [entr](https://github.com/eradman/entr) não roda no **Windows**, existe uma solução alternativa.
-
-Crie o arquivo `.env-local` na raiz do projeto e insira:
-
-```
-WATCH_LOCAL_CMD="yarn dlx nodemon -e js,json --watch server --exec npm start"
-```
-
-ou
-
-```
-WATCH_LOCAL_CMD="npx nodemon -e js,json --watch server --exec npm start"
 ```
 
 

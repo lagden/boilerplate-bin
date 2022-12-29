@@ -14,8 +14,8 @@ usage() {
 
   Options:
     -e <development|staging|production>  Environment
-    -w                                   Watch and reload application
-    -b                                   Just build the application
+    -b                                   Build and run the application
+    -i                                   Ignore run
     -h                                   Show usage
 
 EOF
@@ -26,8 +26,8 @@ exit 2
 CURR_FOLDER="$(pwd)"
 cd $CURR_FOLDER
 
-unset WATCH
-WATCH=false
+unset IGNORE_RUN
+IGNORE_RUN=false
 
 unset BUILD
 BUILD=false
@@ -38,12 +38,12 @@ OPT="development"
 unset OPT_AVAILABLE
 OPT_AVAILABLE=("development" "staging" "production")
 
-while getopts "wbhe:" o
+while getopts "ibhe:" o
 do
 	case ${o} in
 		e) OPT=$OPTARG ;;
-		w) WATCH=true ;;
 		b) BUILD=true ;;
+		i) IGNORE_RUN=true ;;
 		h) usage ;;
 		\?) usage ;;
 	esac
@@ -60,27 +60,30 @@ if test "${REQUIRE_GEN:-0}" = "1"; then
 	gen_env "${CURR_FOLDER}/resource/env.js"
 fi
 
-# Just build
+# Build and RUN
 if $BUILD; then
-	ok "Building cmd: ${BUILD_LOCAL_CMD}"
-	$BUILD_LOCAL_CMD
+	ok "Building cmd: ${BUILD_CMD} ---> ${OPT}"
+	eval ${BUILD_CMD}
+
 	if test $? -ne 0; then
 		abort "Build failed"
 	fi
+
+	if $IGNORE_RUN; then
+		exit 0
+	fi
+
+	eval ${RUN_CMD}
 	exit 0
 fi
 
-if $WATCH; then
-	ok "Running cmd: ${WATCH_LOCAL_CMD}"
+ok "Running cmd: ${WATCH_CMD}"
 
-	# Watch command
-	eval ${WATCH_LOCAL_CMD}
+# Watch
+eval ${WATCH_CMD}
 
-	if test $? -ne 0; then
-		abort "Watch failed"
-	fi
-else
-	eval ${START_CMD}
+if test $? -ne 0; then
+	abort "Watch failed"
 fi
 
 exit 0
