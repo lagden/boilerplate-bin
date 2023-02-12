@@ -74,15 +74,12 @@ if test "${REGISTRY_GOOGLE_CLOUD:-0}" = "0"; then
 	cat ${CURR_FOLDER}/.registry-passwd | docker login $REGISTRY --username $REGISTRY_USER --password-stdin
 fi
 
+docker push $TAG_IMAGE
+
 if test "${OPT}" = "production"; then
 	docker push $TAG_IMAGE_LATEST
 fi
 
-docker push $TAG_IMAGE
-
-# # Cleanup
-# docker rmi $(docker images -q -f "dangling=true" -f "label=autodelete=true")
-
-ok "Build finalizado... Yeahh!!!"
+ok "Image build accomplished... Yeahh!!!"
 
 exit 0

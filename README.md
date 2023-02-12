@@ -133,12 +133,12 @@ Veja o exemplo abaixo:
 ```yml
 command: >
   /bin/ash -c "
-    bin/wait db:3435;
+    bin/wait db:3456;
     node server
   "
 ```
 
-A aplicação só irá iniciar quando o serviço `db` estiver respondendo na porta `3435`.
+A aplicação só irá iniciar quando o serviço `db` estiver respondendo na porta `3456`.
 
 
 ### Local

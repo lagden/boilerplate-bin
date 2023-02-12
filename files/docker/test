@@ -75,7 +75,6 @@ docker compose \
 	$BUILD
 
 if test $? -ne 0; then
-	_cleanup
 	abort "Test FAIL"
 fi
 
