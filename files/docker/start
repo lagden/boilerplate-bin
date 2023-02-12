@@ -64,8 +64,8 @@ docker compose \
 	$SERVICE
 
 # test $? -ne 0 && abort "Start failed" || ok "Stopped gracefully"
-if test $? -ne 0; then
-	abort "Start failed"
-fi
+# if test $? -ne 0; then
+# 	abort "Start failed"
+# fi
 
 exit 0
