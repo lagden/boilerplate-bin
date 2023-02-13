@@ -46,6 +46,6 @@ if test "${REQUIRE_GEN:-0}" = "1"; then
 fi
 
 CMD="${TEST_CMD} ${UPDATE_SNAPSHOT}"
-$CMD
+eval $CMD
 
 exit 0
