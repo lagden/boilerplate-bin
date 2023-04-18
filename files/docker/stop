@@ -24,6 +24,4 @@ docker compose \
 	--volumes \
 	--remove-orphans
 
-test $? -ne 0 && abort "Docker Compose down failed" || ok "Stopped"
-
 exit 0

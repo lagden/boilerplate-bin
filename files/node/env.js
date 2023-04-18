@@ -9,17 +9,17 @@ const envs = vals.map(v => {
 	try {
 		// Testa os valores
 		JSON.parse(val)
-		return `envs.${v} = ${val}`
+		return `env.${v} = ${val}`
 	} catch {
-		return `envs.${v} = '${val}'`
+		return `env.${v} = '${val}'`
 	}
 })
 
-const template = `const envs = {}
+const template = `const env = {}
 
 ${envs.join('\n')}
 
-export default envs`
+export default env`
 
 process.stdout.write(template)
 process.exit(0)

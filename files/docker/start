@@ -14,7 +14,6 @@ usage() {
   Options:
     -b            Build image
     -d            Run containers in the background
-    -s <service>  Docker compose service name
     -h            Show usage
 
 EOF
@@ -26,18 +25,16 @@ CURR_FOLDER="$(pwd)"
 cd $CURR_FOLDER
 
 BUILD=""
-SERVICE=""
 DAEMON="--abort-on-container-exit"
 OPT="development"
 COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
 COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
 
-while getopts "bds:h" o
+while getopts "bdh" o
 do
 	case ${o} in
 		b) BUILD="--build" ;;
 		d) DAEMON="-d" ;;
-		s) SERVICE=$OPTARG ;;
 		h) usage ;;
 		\?) usage ;;
 	esac
@@ -54,18 +51,13 @@ fi
 docker compose \
 	-f $COMPOSE_TEMPLATE \
 	-f $COMPOSE_LOCAL \
+	--project-name "${APP_NS:-boilerplate}_stack" \
 	up \
 	--force-recreate \
 	--always-recreate-deps \
 	--remove-orphans \
 	--renew-anon-volumes \
 	$BUILD \
-	$DAEMON \
-	$SERVICE
-
-# test $? -ne 0 && abort "Start failed" || ok "Stopped gracefully"
-# if test $? -ne 0; then
-# 	abort "Start failed"
-# fi
+	$DAEMON
 
 exit 0

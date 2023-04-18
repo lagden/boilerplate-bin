@@ -94,7 +94,6 @@ Usage: start [options...]
 Options:
   -b            Build image
   -d            Run containers in the background
-  -s <service>  Docker compose service name
   -h            Show usage
 ```
 
@@ -165,10 +164,10 @@ Carrega as variáveis de ambiente de **teste** e executa o teste da aplicação.
 
 ### Node
 
-#### envs.js
+#### env.js
 
 Esse script é utilizado geralmente em aplicações frontend.  
-A função dele é gerar um arquivo **javascript** com as variáveis de ambiente.
+A função dele é gerar um arquivo **javascript** com as variáveis de ambiente definidas.
 
 
 #### pkg.js
