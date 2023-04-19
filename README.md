@@ -112,7 +112,6 @@ Usage: test [options...]
 
 Options:
   -b            Build image
-  -s <service>  Docker compose service name
   -h            Show usage
 ```
 
@@ -132,7 +131,7 @@ Veja o exemplo abaixo:
 ```yml
 command: >
   /bin/ash -c "
-    bin/wait db:3456;
+    bin/helper/wait db:3456;
     node server
   "
 ```
