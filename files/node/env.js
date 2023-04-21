@@ -19,7 +19,8 @@ const template = `const env = {}
 
 ${envs.join('\n')}
 
-export default env`
+export default env
+`
 
 process.stdout.write(template)
 process.exit(0)
