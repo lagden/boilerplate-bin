@@ -2,7 +2,7 @@
 
 Boilerplate com `Bourne Shell script`, `Bourne-Again Shell script` e `Node.js script`.
 
-Utilizados nos projetos:
+Pode ser utilizado nos projetos:
 
 - [Boilerplate Rest](https://github.com/lagden/boilerplate-rest)
 - [Boilerplate GraphQL](https://github.com/lagden/boilerplate-gql)
@@ -12,16 +12,20 @@ Utilizados nos projetos:
 
 ## Como usar
 
-⚠️ **Atenção**
+Utilize `@tadashi/boilerplate-create` para iniciar o projeto.
 
-Esses scripts dependem de uma estrutura específica para que funcionem adequadamente.
-
-**Exemplo:**
-
-```shell
-cd meu_projeto
-npx tiged lagden/boilerplate-bin/files#main bin --force
 ```
+npm i -g @tadashi/boilerplate-create
+boilerplate-create
+```
+
+ou
+
+```
+npx --yes @tadashi/boilerplate-create
+```
+
+E siga as instruções do prompt.
 
 
 ## Scripts
