@@ -12,6 +12,7 @@ usage() {
   Usage: $0 [options...]
 
   Options:
+    -s <service>  Get exit code from service
     -b            Build image
     -h            Show usage
 
@@ -24,6 +25,7 @@ CURR_FOLDER="$(pwd)"
 cd $CURR_FOLDER
 
 BUILD=""
+EXIT_FROM=""
 OPT="test"
 COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
 COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
@@ -41,10 +43,11 @@ _cleanup() {
 
 trap '_cleanup; abort "Tests failed for unexpected reasons"' HUP INT QUIT PIPE TERM SIGINT SIGTERM
 
-while getopts "bh" o
+while getopts "bs:h" o
 do
 	case ${o} in
 		b) BUILD="--build" ;;
+		s) EXIT_FROM="--exit-code-from $OPTARG" ;;
 		h) usage ;;
 		\?) usage ;;
 	esac
@@ -68,6 +71,7 @@ docker compose \
 	--abort-on-container-exit \
 	--remove-orphans \
 	--renew-anon-volumes \
+	$EXIT_FROM \
 	$BUILD
 
 if test $? -ne 0; then

@@ -35,6 +35,7 @@ E siga as instruções do prompt.
 - [Docker](#docker)
     - [deploy](#deploy)
     - [image](#image)
+    - [image_ci](#image_ci)
     - [start](#start)
     - [stop](#stop)
     - [test](#test)
@@ -88,6 +89,20 @@ Options:
 ```
 
 
+#### image_ci
+
+Cria a imagem do projeto via CI/CD
+
+
+```
+Usage: image_ci [options...]
+
+Options:
+  -e <staging|production> Environment
+  -h                      Show usage
+```
+
+
 #### start
 
 Inicia o stack de **desenvolvimento** via **docker**.
@@ -115,6 +130,7 @@ Executa o teste do stack via **docker**
 Usage: test [options...]
 
 Options:
+  -s <service>  Get exit code from service
   -b            Build image
   -h            Show usage
 ```
