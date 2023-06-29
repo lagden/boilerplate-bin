@@ -1,7 +1,5 @@
 # Boilerplate Bin
 
-Boilerplate com `Bourne Shell script`, `Bourne-Again Shell script` e `Node.js script`.
-
 Pode ser utilizado nos projetos:
 
 - [Boilerplate Rest](https://github.com/lagden/boilerplate-rest)
@@ -46,7 +44,9 @@ E siga as instruções do prompt.
     - [start](#start-1)
     - [test](#test)
 - [Node](#Node)
-    - [envs.js](#envs)
+    - [build](#build)
+    - [env](#env)
+    - [env.js](#env.js)
     - [pkg.js](#pkg.js)
     - [zera](#zera)
 
@@ -182,6 +182,18 @@ Carrega as variáveis de ambiente de **teste** e executa o teste da aplicação.
 
 
 ### Node
+
+#### build
+
+Esse script é utilizado geralmente em aplicações frontend.  
+Ele executa o `build` da aplicação dentro do **Dockerfile**
+
+
+#### env
+
+Esse script é utilizado geralmente em aplicações frontend.  
+Utilizado no `job` do CI/CD para executar o [env.js](#env.js).
+
 
 #### env.js
 
