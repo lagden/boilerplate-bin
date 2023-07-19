@@ -47,5 +47,4 @@ fi
 
 CMD="${TEST_CMD} ${UPDATE_SNAPSHOT}"
 eval $CMD
-
-exit 0
+test $? -ne 0 && abort "Test fail" || ok "Test done"

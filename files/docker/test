@@ -41,7 +41,7 @@ _cleanup() {
 		--remove-orphans > /dev/null 2>&1
 }
 
-trap '_cleanup; abort "Tests failed for unexpected reasons"' HUP INT QUIT PIPE TERM SIGINT SIGTERM
+trap '_cleanup; abort "Tests failed for unexpected reasons"' 1 2 3 6 13 14 15
 
 while getopts "bs:h" o
 do
