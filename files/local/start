@@ -66,20 +66,19 @@ fi
 # Build and RUN
 if $BUILD; then
 
-	$BUILD_CMD
+	# $BUILD_CMD
 	test $? -ne 0 && abort "Build failed" || ok "Building cmd: ${BUILD_CMD} ---> ${OPT}"
 
 	if $IGNORE_RUN; then
 		exit 0
 	fi
 
-	$RUN_CMD
+	ok "Running cmd: ${RUN_CMD}"
+	eval $RUN_CMD
 	exit 0
 fi
 
-ok "Running cmd: ${WATCH_CMD}"
-
 # Watch
+ok "Watch cmd: ${WATCH_CMD}"
 eval $WATCH_CMD
-
 exit 0
