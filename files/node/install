@@ -17,7 +17,7 @@ if test "${PM}" = "npm"; then
 fi
 
 if test "${PM}" = "pnpm"; then
-	test "${NODE_ENV}" = "development" && pnpm i || pnpm i --prod --ignore-scripts
+	test "${NODE_ENV}" = "development" && pnpm i || pnpm i --prod --ignore-scripts ----frozen-lockfile
 fi
 
 ok "Installation is done"

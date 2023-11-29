@@ -69,6 +69,7 @@ echo "------"
 docker build \
 	--build-arg VERSION=${VERSION} \
 	--build-arg NODE_ENV=${NODE_ENV} \
+	--build-arg APP_ENV=${APP_ENV} \
 	--build-arg PM=${PM:-npm} \
 	--target $DOCKER_TARGET_BUILD \
 	--compress \

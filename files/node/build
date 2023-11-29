@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 DIR="$(cd $(dirname $0) && pwd)"
 BIN_DIR="$(cd $DIR/.. && pwd)"
@@ -10,15 +10,21 @@ BIN_DIR="$(cd $DIR/.. && pwd)"
 CURR_FOLDER="$(pwd)"
 cd $CURR_FOLDER
 
+# ENV File
+OPT="${APP_ENV:-production}"
+echo "OPT ${OPT}"
+load_env $OPT
+
 echo "PM ----> ${PM}"
 
 if test "${PM}" = "npm"; then
-	npm i --include=dev --ignore-scripts
+	# npm i --include=dev --ignore-scripts
+	env NODE_ENV=ci npm i
 	npm run build
 fi
 
 if test "${PM}" = "pnpm"; then
-	pnpm i --dev
+	env NODE_ENV=ci pnpm i --frozen-lockfile
 	pnpm build
 fi
 
