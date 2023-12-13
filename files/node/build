@@ -24,7 +24,7 @@ if test "${PM}" = "npm"; then
 fi
 
 if test "${PM}" = "pnpm"; then
-	env NODE_ENV=ci pnpm i --frozen-lockfile
+	env NODE_ENV=ci pnpm i
 	pnpm build
 fi
 
