@@ -45,8 +45,6 @@ E siga as instruções do prompt.
     - [test](#test)
 - [Node](#Node)
     - [build](#build)
-    - [env](#env)
-    - [env.js](#env.js)
     - [pkg.js](#pkg.js)
     - [zera](#zera)
 
@@ -189,22 +187,10 @@ Esse script é utilizado geralmente em aplicações frontend.
 Ele executa o `build` da aplicação dentro do **Dockerfile**
 
 
-#### env
-
-Esse script é utilizado geralmente em aplicações frontend.  
-Utilizado no `job` do CI/CD para executar o [env.js](#env.js).
-
-
-#### env.js
-
-Esse script é utilizado geralmente em aplicações frontend.  
-A função dele é gerar um arquivo **javascript** com as variáveis de ambiente definidas.
-
-
 #### pkg.js
 
 Atualiza para última versão todas as `dependencies` e `devDependencies` do arquivo **package.json**.  
-Mas é preciso que seja instalado novamente via **npm** ou **yarn**.
+Mas é preciso que seja instalado novamente via **npm**, **yarn** ou **pnpm**.
 
 
 #### zera
