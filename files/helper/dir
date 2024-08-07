@@ -1,0 +1,21 @@
+#!/bin/sh
+
+monitorar_diretorio() {
+	DIRETORIO="$1"
+
+	while [ ! -d "$DIRETORIO" ]; do
+		echo "Aguardando a criação do diretório $DIRETORIO..."
+		sleep 2
+	done
+
+	echo "O diretório $DIRETORIO existe agora!"
+}
+
+# Verifica se um argumento foi passado
+if [ -z "$1" ]; then
+	echo "Uso: $0 <caminho_do_diretorio>"
+	exit 1
+fi
+
+# Chamada da função com o diretório desejado
+monitorar_diretorio "$1"
